@@ -1,0 +1,1785 @@
+[
+    {
+        "id": "tab-director",
+        "type": "tab",
+        "label": "🔑 Director",
+        "disabled": false,
+        "info": "Acceso total: líneas, mantenimiento, producción y costes"
+    },
+    {
+        "id": "tab-supervisor",
+        "type": "tab",
+        "label": "👔 Supervisor",
+        "disabled": false,
+        "info": "Líneas + mantenimiento + producción. Sin costes."
+    },
+    {
+        "id": "tab-operario1",
+        "type": "tab",
+        "label": "👷 Operario 1",
+        "disabled": false,
+        "info": "Solo Línea 1"
+    },
+    {
+        "id": "tab-operario2",
+        "type": "tab",
+        "label": "👷 Operario 2",
+        "disabled": false,
+        "info": "Solo Línea 2"
+    },
+    {
+        "id": "tls-director",
+        "type": "tls-config",
+        "name": "TLS Director",
+        "cert": "/certs/director.crt",
+        "key": "/certs/director.key",
+        "ca": "/certs/ca.crt",
+        "certname": "director.crt",
+        "keyname": "director.key",
+        "caname": "ca.crt",
+        "verifyservercert": true
+    },
+    {
+        "id": "tls-supervisor",
+        "type": "tls-config",
+        "name": "TLS Supervisor",
+        "cert": "/certs/supervisor.crt",
+        "key": "/certs/supervisor.key",
+        "ca": "/certs/ca.crt",
+        "certname": "supervisor.crt",
+        "keyname": "supervisor.key",
+        "caname": "ca.crt",
+        "verifyservercert": true
+    },
+    {
+        "id": "tls-operario",
+        "type": "tls-config",
+        "name": "TLS Operario 1",
+        "cert": "/certs/operario.crt",
+        "key": "/certs/operario.key",
+        "ca": "/certs/ca.crt",
+        "certname": "operario.crt",
+        "keyname": "operario.key",
+        "caname": "ca.crt",
+        "verifyservercert": true
+    },
+    {
+        "id": "tls-operario2",
+        "type": "tls-config",
+        "name": "TLS Operario 2",
+        "cert": "/certs/operario2.crt",
+        "key": "/certs/operario2.key",
+        "ca": "/certs/ca.crt",
+        "certname": "operario2.crt",
+        "keyname": "operario2.key",
+        "caname": "ca.crt",
+        "verifyservercert": true
+    },
+    {
+        "id": "broker-director",
+        "type": "mqtt-broker",
+        "name": "Broker Director",
+        "broker": "mosquitto",
+        "port": "8883",
+        "tls": "tls-director",
+        "clientid": "nodered-director",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "broker-supervisor",
+        "type": "mqtt-broker",
+        "name": "Broker Supervisor",
+        "broker": "mosquitto",
+        "port": "8883",
+        "tls": "tls-supervisor",
+        "clientid": "nodered-supervisor",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "broker-operario",
+        "type": "mqtt-broker",
+        "name": "Broker Operario 1",
+        "broker": "mosquitto",
+        "port": "8883",
+        "tls": "tls-operario",
+        "clientid": "nodered-operario1",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "broker-operario2",
+        "type": "mqtt-broker",
+        "name": "Broker Operario 2",
+        "broker": "mosquitto",
+        "port": "8883",
+        "tls": "tls-operario2",
+        "clientid": "nodered-operario2",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "4299c54ee0c44fc5",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "🏭 Fábrica IoT - Panel de Control",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "ui-tab-director",
+        "type": "ui_tab",
+        "name": "🔑 Director",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "ui-tab-supervisor",
+        "type": "ui_tab",
+        "name": "👔 Supervisor",
+        "icon": "supervisor_account",
+        "order": 2
+    },
+    {
+        "id": "ui-tab-operario1",
+        "type": "ui_tab",
+        "name": "👷 Operario 1 (Línea 1)",
+        "icon": "build",
+        "order": 3
+    },
+    {
+        "id": "ui-tab-operario2",
+        "type": "ui_tab",
+        "name": "👷 Operario 2 (Línea 2)",
+        "icon": "build",
+        "order": 4
+    },
+    {
+        "id": "grp-dir-lineas",
+        "type": "ui_group",
+        "name": "📊 Líneas de Producción",
+        "tab": "ui-tab-director",
+        "order": 1,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-dir-mant",
+        "type": "ui_group",
+        "name": "🔧 Mantenimiento",
+        "tab": "ui-tab-director",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "grp-dir-prod",
+        "type": "ui_group",
+        "name": "🏭 Producción",
+        "tab": "ui-tab-director",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "grp-dir-costes",
+        "type": "ui_group",
+        "name": "💰 Costes y Energía",
+        "tab": "ui-tab-director",
+        "order": 4,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-dir-acceso",
+        "type": "ui_group",
+        "name": "🔐 Resumen de Permisos por Rol",
+        "tab": "ui-tab-director",
+        "order": 5,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-sup-lineas",
+        "type": "ui_group",
+        "name": "📊 Líneas de Producción",
+        "tab": "ui-tab-supervisor",
+        "order": 1,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-sup-mant",
+        "type": "ui_group",
+        "name": "🔧 Mantenimiento",
+        "tab": "ui-tab-supervisor",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "grp-sup-prod",
+        "type": "ui_group",
+        "name": "🏭 Producción",
+        "tab": "ui-tab-supervisor",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "grp-sup-restringido",
+        "type": "ui_group",
+        "name": "🔒 Acceso Restringido",
+        "tab": "ui-tab-supervisor",
+        "order": 4,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-op1-linea1",
+        "type": "ui_group",
+        "name": "📊 Línea 1 - Datos en Tiempo Real",
+        "tab": "ui-tab-operario1",
+        "order": 1,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-op1-restringido",
+        "type": "ui_group",
+        "name": "🔒 Acceso Restringido",
+        "tab": "ui-tab-operario1",
+        "order": 2,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-op2-linea2",
+        "type": "ui_group",
+        "name": "📊 Línea 2 - Datos en Tiempo Real",
+        "tab": "ui-tab-operario2",
+        "order": 1,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-op2-restringido",
+        "type": "ui_group",
+        "name": "🔒 Acceso Restringido",
+        "tab": "ui-tab-operario2",
+        "order": 2,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "dir-mqtt-l1-vel",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "L1 Velocidad",
+        "topic": "fabrica/linea1/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "dir-parse-l1-vel"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-l1-vel",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L1 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "dir-gauge-l1-vel",
+                "dir-chart-lineas"
+            ]
+        ]
+    },
+    {
+        "id": "dir-gauge-l1-vel",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-lineas",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 1 - Velocidad",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1200,
+        "max": 1800,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1350,
+        "seg2": 1600,
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-l1-temp",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "L1 Temperatura",
+        "topic": "fabrica/linea1/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "dir-parse-l1-temp"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-l1-temp",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "dir-gauge-l1-temp"
+            ]
+        ]
+    },
+    {
+        "id": "dir-gauge-l1-temp",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-lineas",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 1 - Temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 100,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 70,
+        "seg2": 85,
+        "x": 540,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-l2-vel",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "L2 Velocidad",
+        "topic": "fabrica/linea2/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "dir-parse-l2-vel"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-l2-vel",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L2 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "dir-gauge-l2-vel",
+                "dir-chart-lineas"
+            ]
+        ]
+    },
+    {
+        "id": "dir-gauge-l2-vel",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-lineas",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 2 - Velocidad",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1400,
+        "max": 2200,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1600,
+        "seg2": 2000,
+        "x": 540,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-l2-temp",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "L2 Temperatura",
+        "topic": "fabrica/linea2/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "dir-parse-l2-temp"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-l2-temp",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "dir-gauge-l2-temp"
+            ]
+        ]
+    },
+    {
+        "id": "dir-gauge-l2-temp",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-lineas",
+        "order": 4,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 2 - Temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 120,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 80,
+        "seg2": 100,
+        "x": 540,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "dir-chart-lineas",
+        "type": "ui_chart",
+        "z": "tab-director",
+        "name": "",
+        "group": "grp-dir-lineas",
+        "order": 5,
+        "width": 12,
+        "height": 4,
+        "label": "Velocidad RPM - Histórico en tiempo real",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Esperando datos...",
+        "dot": false,
+        "ymin": "1200",
+        "ymax": "2200",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "cutout": "",
+        "useOneColor": false,
+        "useUTC": false,
+        "series": ["L1 Velocidad", "L2 Velocidad"],
+        "colors": [
+            "#1f77b4",
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 540,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dir-mqtt-alertas",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Alertas Mantenimiento",
+        "topic": "fabrica/mantenimiento/alertas",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 480,
+        "wires": [
+            [
+                "dir-format-alerta"
+            ]
+        ]
+    },
+    {
+        "id": "dir-format-alerta",
+        "type": "function",
+        "z": "tab-director",
+        "name": "Formatear alerta",
+        "func": "var d = msg.payload; var color = d.estado==='ALERTA'?'#FF0000':'#00AA00'; msg.payload = (d.estado==='ALERTA'?'🚨 ':'✅ ') + d.estado + ' — ' + d.mensaje; msg.style={color:color}; return msg;",
+        "outputs": 1,
+        "x": 330,
+        "y": 480,
+        "wires": [
+            [
+                "dir-text-alerta"
+            ]
+        ]
+    },
+    {
+        "id": "dir-text-alerta",
+        "type": "ui_text",
+        "z": "tab-director",
+        "group": "grp-dir-mant",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "Estado Mantenimiento",
+        "label": "⚙️ Estado Línea 2",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-rendimiento",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Rendimiento",
+        "topic": "fabrica/produccion/rendimiento",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 560,
+        "wires": [
+            [
+                "dir-parse-rendimiento"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-rendimiento",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ %",
+        "func": "msg.payload = msg.payload.porcentaje; return msg;",
+        "outputs": 1,
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "dir-gauge-rendimiento"
+            ]
+        ]
+    },
+    {
+        "id": "dir-gauge-rendimiento",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-prod",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Rendimiento Turno",
+        "label": "%",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#ca3838",
+            "#e6e600",
+            "#00b500"
+        ],
+        "seg1": 40,
+        "seg2": 70,
+        "x": 540,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-unidades",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Unidades",
+        "topic": "fabrica/produccion/unidades",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 620,
+        "wires": [
+            [
+                "dir-parse-unidades"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-unidades",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ total",
+        "func": "msg.payload = msg.payload.total + ' uds (L1: ' + msg.payload.linea1 + ' | L2: ' + msg.payload.linea2 + ')'; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 620,
+        "wires": [
+            [
+                "dir-text-unidades"
+            ]
+        ]
+    },
+    {
+        "id": "dir-text-unidades",
+        "type": "ui_text",
+        "z": "tab-director",
+        "group": "grp-dir-prod",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "name": "Unidades Producidas",
+        "label": "📦 Unidades",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-energia",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Energía/Costes",
+        "topic": "fabrica/costes/energia",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 700,
+        "wires": [
+            [
+                "dir-parse-energia"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-energia",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ coste",
+        "func": "var d=msg.payload; msg.payload = d.coste_eur+' € ('+d.kwh+' kWh) — Turno: '+d.turno; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 700,
+        "wires": [
+            [
+                "dir-text-coste"
+            ]
+        ]
+    },
+    {
+        "id": "dir-text-coste",
+        "type": "ui_text",
+        "z": "tab-director",
+        "group": "grp-dir-costes",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "Coste Energía",
+        "label": "⚡ Coste acumulado",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-por-unidad",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Coste/Unidad",
+        "topic": "fabrica/costes/por_unidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 760,
+        "wires": [
+            [
+                "dir-parse-por-unidad"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-por-unidad",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ €/ud",
+        "func": "msg.payload = msg.payload.eur_por_unidad + ' €/unidad'; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 760,
+        "wires": [
+            [
+                "dir-text-por-unidad"
+            ]
+        ]
+    },
+    {
+        "id": "dir-text-por-unidad",
+        "type": "ui_text",
+        "z": "tab-director",
+        "group": "grp-dir-costes",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "name": "Coste por Unidad",
+        "label": "💰 Coste/unidad",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "inject-permisos",
+        "type": "inject",
+        "z": "tab-director",
+        "name": "Iniciar tabla",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.5,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 840,
+        "wires": [
+            [
+                "dir-text-permisos"
+            ]
+        ]
+    },
+    {
+        "id": "dir-text-permisos",
+        "type": "ui_template",
+        "z": "tab-director",
+        "group": "grp-dir-acceso",
+        "name": "Tabla de Permisos",
+        "order": 1,
+        "width": 12,
+        "height": 5,
+        "templateScope": "local",
+        "template": "<style>.pt{width:100%;border-collapse:collapse;font-size:13px;font-family:sans-serif;margin-top:4px}.pt th{background:#1565c0;color:#fff;padding:10px 8px;text-align:center}.pt th:first-child{text-align:left}.pt td{padding:8px 8px;border-bottom:1px solid #e0e0e0;text-align:center}.pt td:first-child{text-align:left;font-family:monospace}.pt tr:nth-child(even){background:#f5f5f5}.ok{color:#2e7d32;font-weight:bold}.no{color:#c62828;font-weight:bold}</style><table class='pt'><thead><tr><th>Topico MQTT</th><th>Operario 1</th><th>Operario 2</th><th>Supervisor</th><th>Director</th></tr></thead><tbody><tr><td>fabrica/linea1/*</td><td class='ok'>SI</td><td class='no'>NO</td><td class='ok'>SI</td><td class='ok'>SI</td></tr><tr><td>fabrica/linea2/*</td><td class='no'>NO</td><td class='ok'>SI</td><td class='ok'>SI</td><td class='ok'>SI</td></tr><tr><td>fabrica/mantenimiento/*</td><td class='no'>NO</td><td class='no'>NO</td><td class='ok'>SI</td><td class='ok'>SI</td></tr><tr><td>fabrica/produccion/*</td><td class='no'>NO</td><td class='no'>NO</td><td class='ok'>SI</td><td class='ok'>SI</td></tr><tr><td>fabrica/costes/*</td><td class='no'>NO</td><td class='no'>NO</td><td class='no'>NO</td><td class='ok'>SI</td></tr></tbody></table>",
+        "x": 380,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "sup-mqtt-l1-vel",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "L1 Velocidad",
+        "topic": "fabrica/linea1/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "sup-parse-l1-vel"
+            ]
+        ]
+    },
+    {
+        "id": "sup-parse-l1-vel",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L1 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "sup-gauge-l1-vel",
+                "sup-chart-lineas"
+            ]
+        ]
+    },
+    {
+        "id": "sup-gauge-l1-vel",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 1 - Velocidad",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1200,
+        "max": 1800,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1350,
+        "seg2": 1600,
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "sup-mqtt-l1-temp",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "L1 Temperatura",
+        "topic": "fabrica/linea1/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "sup-parse-l1-temp"
+            ]
+        ]
+    },
+    {
+        "id": "sup-parse-l1-temp",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "sup-gauge-l1-temp"
+            ]
+        ]
+    },
+    {
+        "id": "sup-gauge-l1-temp",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 1 - Temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 100,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 70,
+        "seg2": 85,
+        "x": 540,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "sup-mqtt-l2-vel",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "L2 Velocidad",
+        "topic": "fabrica/linea2/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "sup-parse-l2-vel"
+            ]
+        ]
+    },
+    {
+        "id": "sup-parse-l2-vel",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L2 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "sup-gauge-l2-vel",
+                "sup-chart-lineas"
+            ]
+        ]
+    },
+    {
+        "id": "sup-gauge-l2-vel",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 2 - Velocidad",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1400,
+        "max": 2200,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1600,
+        "seg2": 2000,
+        "x": 540,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "sup-mqtt-l2-temp",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "L2 Temperatura",
+        "topic": "fabrica/linea2/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "sup-parse-l2-temp"
+            ]
+        ]
+    },
+    {
+        "id": "sup-parse-l2-temp",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "sup-gauge-l2-temp"
+            ]
+        ]
+    },
+    {
+        "id": "sup-gauge-l2-temp",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 4,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 2 - Temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 120,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 80,
+        "seg2": 100,
+        "x": 540,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "sup-chart-lineas",
+        "type": "ui_chart",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 5,
+        "width": 12,
+        "height": 4,
+        "label": "Velocidad RPM en tiempo real",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Esperando datos...",
+        "dot": false,
+        "ymin": "1200",
+        "ymax": "2200",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "series": ["L1 Velocidad", "L2 Velocidad"],
+        "colors": [
+            "#1f77b4",
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "x": 540,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "sup-mqtt-alertas",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "Alertas",
+        "topic": "fabrica/mantenimiento/alertas",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 480,
+        "wires": [
+            [
+                "sup-format-alerta"
+            ]
+        ]
+    },
+    {
+        "id": "sup-format-alerta",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "Formatear alerta",
+        "func": "var d=msg.payload; msg.payload=(d.estado==='ALERTA'?'🚨 ':'✅ ')+d.estado+' — '+d.mensaje; return msg;",
+        "outputs": 1,
+        "x": 330,
+        "y": 480,
+        "wires": [
+            [
+                "sup-text-alerta"
+            ]
+        ]
+    },
+    {
+        "id": "sup-text-alerta",
+        "type": "ui_text",
+        "z": "tab-supervisor",
+        "group": "grp-sup-mant",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "Estado Mantenimiento",
+        "label": "⚙️ Estado Línea 2",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "sup-mqtt-rendimiento",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "Rendimiento",
+        "topic": "fabrica/produccion/rendimiento",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 560,
+        "wires": [
+            [
+                "sup-parse-rendimiento"
+            ]
+        ]
+    },
+    {
+        "id": "sup-parse-rendimiento",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ %",
+        "func": "msg.payload = msg.payload.porcentaje; return msg;",
+        "outputs": 1,
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "sup-gauge-rendimiento"
+            ]
+        ]
+    },
+    {
+        "id": "sup-gauge-rendimiento",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-prod",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Rendimiento Turno",
+        "label": "%",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#ca3838",
+            "#e6e600",
+            "#00b500"
+        ],
+        "seg1": 40,
+        "seg2": 70,
+        "x": 540,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "sup-mqtt-unidades",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "Unidades",
+        "topic": "fabrica/produccion/unidades",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 620,
+        "wires": [
+            [
+                "sup-parse-unidades"
+            ]
+        ]
+    },
+    {
+        "id": "sup-parse-unidades",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ total",
+        "func": "msg.payload = msg.payload.total + ' uds (L1: '+msg.payload.linea1+' | L2: '+msg.payload.linea2+')'; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 620,
+        "wires": [
+            [
+                "sup-text-unidades"
+            ]
+        ]
+    },
+    {
+        "id": "sup-text-unidades",
+        "type": "ui_text",
+        "z": "tab-supervisor",
+        "group": "grp-sup-prod",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "name": "Unidades Producidas",
+        "label": "📦 Unidades",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "inject-sup-restringido",
+        "type": "inject",
+        "z": "tab-supervisor",
+        "name": "Iniciar aviso",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "once": true,
+        "onceDelay": 0.5,
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 700,
+        "wires": [
+            [
+                "sup-text-restringido"
+            ]
+        ]
+    },
+    {
+        "id": "sup-text-restringido",
+        "type": "ui_template",
+        "z": "tab-supervisor",
+        "group": "grp-sup-restringido",
+        "name": "Acceso Restringido Supervisor",
+        "order": 1,
+        "width": 12,
+        "height": 2,
+        "templateScope": "local",
+        "template": "<div style='background:#b71c1c;color:#fff;padding:14px 16px;border-radius:6px;font-size:14px'><strong>ACCESO DENEGADO</strong> - Los datos de Costes y Energia (fabrica/costes/*) requieren certificado de Director. El broker rechaza la suscripcion para el rol Supervisor.</div>",
+        "x": 380,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "op1-mqtt-vel",
+        "type": "mqtt in",
+        "z": "tab-operario1",
+        "name": "L1 Velocidad",
+        "topic": "fabrica/linea1/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "inputs": 0,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "op1-parse-vel"
+            ]
+        ]
+    },
+    {
+        "id": "op1-parse-vel",
+        "type": "function",
+        "z": "tab-operario1",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L1 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "op1-gauge-vel",
+                "op1-chart"
+            ]
+        ]
+    },
+    {
+        "id": "op1-gauge-vel",
+        "type": "ui_gauge",
+        "z": "tab-operario1",
+        "group": "grp-op1-linea1",
+        "order": 1,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Velocidad Línea 1",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1200,
+        "max": 1800,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1350,
+        "seg2": 1600,
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "op1-mqtt-temp",
+        "type": "mqtt in",
+        "z": "tab-operario1",
+        "name": "L1 Temperatura",
+        "topic": "fabrica/linea1/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "op1-parse-temp"
+            ]
+        ]
+    },
+    {
+        "id": "op1-parse-temp",
+        "type": "function",
+        "z": "tab-operario1",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "op1-gauge-temp"
+            ]
+        ]
+    },
+    {
+        "id": "op1-gauge-temp",
+        "type": "ui_gauge",
+        "z": "tab-operario1",
+        "group": "grp-op1-linea1",
+        "order": 2,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Temperatura Línea 1",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 100,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 70,
+        "seg2": 85,
+        "x": 540,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "op1-chart",
+        "type": "ui_chart",
+        "z": "tab-operario1",
+        "group": "grp-op1-linea1",
+        "order": 3,
+        "width": 12,
+        "height": 4,
+        "label": "Velocidad Linea 1 - Historico",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Esperando datos...",
+        "dot": false,
+        "ymin": "1200",
+        "ymax": "1800",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "colors": [
+            "#1f77b4"
+        ],
+        "outputs": 1,
+        "x": 540,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "inject-op1-restringido",
+        "type": "inject",
+        "z": "tab-operario1",
+        "name": "Iniciar aviso",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "once": true,
+        "onceDelay": 0.5,
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "op1-text-restringido"
+            ]
+        ]
+    },
+    {
+        "id": "op1-text-restringido",
+        "type": "ui_template",
+        "z": "tab-operario1",
+        "group": "grp-op1-restringido",
+        "name": "Acceso Restringido Operario1",
+        "order": 1,
+        "width": 12,
+        "height": 4,
+        "templateScope": "local",
+        "template": "<div style='padding:4px'><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Linea 2</strong><br>fabrica/linea2/* - El broker rechaza la suscripcion. Requiere Operario 2, Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Mantenimiento</strong><br>fabrica/mantenimiento/* - Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Produccion</strong><br>fabrica/produccion/* - Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;font-size:13px'><strong>ACCESO DENEGADO - Costes</strong><br>fabrica/costes/* - Solo accesible para Director.</div></div>",
+        "x": 380,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "op2-mqtt-vel",
+        "type": "mqtt in",
+        "z": "tab-operario2",
+        "name": "L2 Velocidad",
+        "topic": "fabrica/linea2/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario2",
+        "inputs": 0,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "op2-parse-vel"
+            ]
+        ]
+    },
+    {
+        "id": "op2-parse-vel",
+        "type": "function",
+        "z": "tab-operario2",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L2 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "op2-gauge-vel",
+                "op2-chart"
+            ]
+        ]
+    },
+    {
+        "id": "op2-gauge-vel",
+        "type": "ui_gauge",
+        "z": "tab-operario2",
+        "group": "grp-op2-linea2",
+        "order": 1,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Velocidad Línea 2",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1400,
+        "max": 2200,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1600,
+        "seg2": 2000,
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "op2-mqtt-temp",
+        "type": "mqtt in",
+        "z": "tab-operario2",
+        "name": "L2 Temperatura",
+        "topic": "fabrica/linea2/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario2",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "op2-parse-temp"
+            ]
+        ]
+    },
+    {
+        "id": "op2-parse-temp",
+        "type": "function",
+        "z": "tab-operario2",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "op2-gauge-temp"
+            ]
+        ]
+    },
+    {
+        "id": "op2-gauge-temp",
+        "type": "ui_gauge",
+        "z": "tab-operario2",
+        "group": "grp-op2-linea2",
+        "order": 2,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Temperatura Línea 2",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 120,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 80,
+        "seg2": 100,
+        "x": 540,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "op2-chart",
+        "type": "ui_chart",
+        "z": "tab-operario2",
+        "group": "grp-op2-linea2",
+        "order": 3,
+        "width": 12,
+        "height": 4,
+        "label": "Velocidad Linea 2 - Historico",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Esperando datos...",
+        "dot": false,
+        "ymin": "1400",
+        "ymax": "2200",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "colors": [
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "x": 540,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "inject-op2-restringido",
+        "type": "inject",
+        "z": "tab-operario2",
+        "name": "Iniciar aviso",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "once": true,
+        "onceDelay": 0.5,
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "op2-text-restringido"
+            ]
+        ]
+    },
+    {
+        "id": "op2-text-restringido",
+        "type": "ui_template",
+        "z": "tab-operario2",
+        "group": "grp-op2-restringido",
+        "name": "Acceso Restringido Operario2",
+        "order": 1,
+        "width": 12,
+        "height": 4,
+        "templateScope": "local",
+        "template": "<div style='padding:4px'><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Linea 1</strong><br>fabrica/linea1/* - El broker rechaza la suscripcion. Requiere Operario 1, Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Mantenimiento</strong><br>fabrica/mantenimiento/* - Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Produccion</strong><br>fabrica/produccion/* - Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;font-size:13px'><strong>ACCESO DENEGADO - Costes</strong><br>fabrica/costes/* - Solo accesible para Director.</div></div>",
+        "x": 380,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    }
+]

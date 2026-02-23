@@ -1,2 +1,186 @@
-# IoT-Reto2-Envio
-Montar un bróker MQTT con o sin contenedor que funcione de manera segura utilizando una autenticación basada en certificados de cliente y de servidor. • Una aplicación de Python que pueda producir y consumir datos de manera segura • Que se pruebe también a producir y consumir datos desde línea de comandos
+# 🏭 Fábrica IoT - MQTT Seguro con Certificados
+
+> Reto: Módulo de Envío de Datos — Desarrollo de Aplicaciones para IoT  
+> Universidad de Deusto, Facultad de Ingeniería
+
+## 👤 Miembros del equipo
+- [Tu nombre aquí]
+
+---
+
+## 📋 Descripción
+
+Sistema de monitorización de una fábrica inteligente con **MQTT seguro (TLS mutual)** y **control de acceso por certificados**. Dependiendo del certificado que presente cada cliente, puede acceder a distintos datos:
+
+| Rol | Acceso |
+|---|---|
+| **Operario** | Velocidad y temperatura de líneas de producción |
+| **Supervisor** | Operario + alertas de mantenimiento + rendimiento |
+| **Director** | Todo, incluyendo costes y consumo energético |
+
+---
+
+## 🏗️ Arquitectura
+
+```
+┌─────────────────────────────────────────────────┐
+│              Docker Compose                      │
+│                                                  │
+│  ┌──────────────┐      ┌───────────────────┐    │
+│  │  Mosquitto   │◄────►│    Node-RED        │    │
+│  │  (broker)    │ TLS  │  Dashboard :1880   │    │
+│  │  TLS + ACL   │      │  /ui               │    │
+│  └──────┬───────┘      └───────────────────┘    │
+│         │                                        │
+│  ┌──────┴───────┐                               │
+│  │   Publisher  │                               │
+│  │   (Python)   │                               │
+│  └──────────────┘                               │
+└─────────────────────────────────────────────────┘
+```
+
+---
+
+## 🚀 Instrucciones de uso
+
+### 1. Requisitos previos
+- Docker y Docker Compose instalados
+- OpenSSL instalado (en WSL: `sudo apt install openssl`)
+- `mosquitto-clients` para pruebas CLI (en WSL: `sudo apt install mosquitto-clients`)
+
+### 2. Generar certificados
+```bash
+chmod +x generar_certs.sh
+./generar_certs.sh
+```
+Esto crea en `./certs/`:
+- `ca.crt / ca.key` — Autoridad Certificadora
+- `server.crt / server.key` — Broker Mosquitto
+- `operario.crt / operario.key` — Cliente operario
+- `supervisor.crt / supervisor.key` — Cliente supervisor
+- `director.crt / director.key` — Cliente director
+- `publisher.crt / publisher.key` — Publisher Python
+
+### 3. Levantar los servicios
+```bash
+docker compose up --build
+```
+
+### 4. Acceder al dashboard
+Abrir en el navegador: **http://localhost:1880/ui**
+
+- Pestaña 🔑 **Director** → ve todos los datos incluyendo costes
+- Pestaña 👷 **Operario** → solo velocidad y temperatura de líneas
+
+---
+
+## 💻 Producir y consumir desde línea de comandos
+
+### Suscribirse como Director (ve todo)
+```bash
+mosquitto_sub \
+  -h localhost -p 8883 \
+  -t "fabrica/#" \
+  --cafile ./certs/ca.crt \
+  --cert ./certs/director.crt \
+  --key ./certs/director.key \
+  -v
+```
+
+### Suscribirse como Operario (acceso limitado)
+```bash
+mosquitto_sub \
+  -h localhost -p 8883 \
+  -t "fabrica/#" \
+  --cafile ./certs/ca.crt \
+  --cert ./certs/operario.crt \
+  --key ./certs/operario.key \
+  -v
+# Solo recibirá fabrica/linea1/* y fabrica/linea2/*
+```
+
+### Intentar acceder a datos de costes como Operario (acceso denegado)
+```bash
+mosquitto_sub \
+  -h localhost -p 8883 \
+  -t "fabrica/costes/#" \
+  --cafile ./certs/ca.crt \
+  --cert ./certs/operario.crt \
+  --key ./certs/operario.key \
+  -v
+# Se conecta pero no recibe ningún mensaje → ACL deniega silenciosamente
+```
+
+### Publicar manualmente un dato
+```bash
+mosquitto_pub \
+  -h localhost -p 8883 \
+  -t "fabrica/linea1/temperatura" \
+  -m '{"valor": 95.5, "unidad": "C", "linea": 1}' \
+  --cafile ./certs/ca.crt \
+  --cert ./certs/director.crt \
+  --key ./certs/director.key
+```
+
+---
+
+## 📊 Topics MQTT y accesos
+
+| Topic | Operario | Supervisor | Director |
+|---|:---:|:---:|:---:|
+| `fabrica/linea1/velocidad` | ✅ | ✅ | ✅ |
+| `fabrica/linea1/temperatura` | ✅ | ✅ | ✅ |
+| `fabrica/linea2/velocidad` | ✅ | ✅ | ✅ |
+| `fabrica/linea2/temperatura` | ✅ | ✅ | ✅ |
+| `fabrica/mantenimiento/alertas` | ❌ | ✅ | ✅ |
+| `fabrica/produccion/rendimiento` | ❌ | ✅ | ✅ |
+| `fabrica/costes/energia` | ❌ | ❌ | ✅ |
+| `fabrica/costes/por_unidad` | ❌ | ❌ | ✅ |
+
+---
+
+## 🔧 Pasos seguidos
+
+1. Diseño de la arquitectura y roles de acceso
+2. Generación de CA y certificados con OpenSSL
+3. Configuración de Mosquitto con TLS mutual y ACL
+4. Desarrollo del publisher Python con simulación de sensores
+5. Configuración de Node-RED con dos conexiones (director y operario)
+6. Construcción del dashboard con gauges y gráficas en tiempo real
+7. Pruebas desde línea de comandos con mosquitto_pub/sub
+8. Contenedorización con Docker Compose
+
+---
+
+## 🚧 Problemas y retos encontrados
+
+- **CN del certificado como username**: Mosquitto usa el CN del certificado como identificador para el ACL (`use_identity_as_username true`). Es importante que el CN coincida exactamente con el `user` en `acl.conf`
+- **Rutas dentro de Docker**: Los volúmenes deben montarse correctamente; Node-RED y el publisher necesitan acceder a los mismos certificados desde rutas distintas
+- **Tiempo de arranque**: El publisher puede intentar conectarse antes de que Mosquitto esté listo; se resuelve con un retry en el código Python
+
+---
+
+## 🔮 Posibles vías de mejora
+
+- Añadir **InfluxDB** para persistencia de datos históricos
+- Integrar **Grafana** para dashboards más avanzados
+- Implementar **renovación automática de certificados** con cert-manager
+- Añadir un **API REST** para consultar datos históricos
+- Implementar **alertas por email** cuando se detecten anomalías
+- Usar **MQTT 5.0** que incluye mejor soporte para respuestas de autorización explícitas
+
+---
+
+## 🔄 Alternativas consideradas
+
+| Alternativa | Pros | Contras |
+|---|---|---|
+| Auth usuario/contraseña | Más simple | Menos seguro, sin identidad criptográfica |
+| JWT Tokens | Estándar web | Requiere plugin adicional en Mosquitto |
+| Sin Docker | Menos pasos | No reproducible, depende del SO |
+| HiveMQ | Más features | Privativo, más complejo |
+
+---
+
+## 📄 Licencia
+Proyecto académico — Universidad de Deusto 2026

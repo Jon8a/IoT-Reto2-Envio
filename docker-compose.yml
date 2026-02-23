@@ -1,0 +1,37 @@
+services:
+
+  # ── BROKER MQTT ─────────────────────────────────────────────
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: fabrica-broker
+    ports:
+      - "8883:8883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./certs:/mosquitto/certs
+    restart: unless-stopped
+
+  # ── PUBLISHER PYTHON ────────────────────────────────────────
+  publisher:
+    build: ./publisher
+    container_name: fabrica-publisher
+    volumes:
+      - ./certs:/certs
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
+
+  # ── NODE-RED DASHBOARD ──────────────────────────────────────
+  nodered:
+    image: nodered/node-red:latest
+    container_name: fabrica-nodered
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./nodered:/data
+      - ./certs:/certs
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Madrid
