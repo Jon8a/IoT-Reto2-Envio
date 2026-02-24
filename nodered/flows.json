@@ -28,6 +28,14 @@
         "info": "Solo Línea 2"
     },
     {
+        "id": "1d437c3addc75383",
+        "type": "tab",
+        "label": "Intento sin Permiso",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "tls-director",
         "type": "tls-config",
         "name": "TLS Director",
@@ -115,7 +123,10 @@
         "usetls": true,
         "protocolVersion": "4",
         "keepalive": "60",
-        "cleansession": true
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthQos": "0",
+        "willQos": "0"
     },
     {
         "id": "broker-operario2",
@@ -146,7 +157,8 @@
                 "default": "#097479",
                 "baseColor": "#097479",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "customTheme": {
                 "name": "Untitled Theme 1",
@@ -161,39 +173,39 @@
                     "edited": false
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#0094CE",
+                    "value": "#097479",
                     "edited": false
                 },
                 "page-backgroundColor": {
-                    "value": "#fafafa",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#1bbfff",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "widget-textColor": {
                     "value": "#111111",
                     "edited": false
                 },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
                 "widget-backgroundColor": {
-                    "value": "#0094ce",
+                    "value": "#097479",
                     "edited": false
                 },
                 "widget-borderColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "base-font": {
@@ -371,6 +383,58 @@
         "order": 2,
         "disp": true,
         "width": "12"
+    },
+    {
+        "id": "tab-demo",
+        "type": "ui_tab",
+        "name": "Demo Acceso",
+        "icon": "warning",
+        "order": 5,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "grp-demo-header",
+        "type": "ui_group",
+        "name": "Como funciona el control de acceso MQTT",
+        "tab": "tab-demo",
+        "order": 1,
+        "disp": true,
+        "width": 12,
+        "collapse": false
+    },
+    {
+        "id": "grp-demo-permitido",
+        "type": "ui_group",
+        "name": "PERMITIDO — operario1 → fabrica/linea1/velocidad",
+        "tab": "tab-demo",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "grp-demo-denegado",
+        "type": "ui_group",
+        "name": "DENEGADO — operario1-fabrica/linea2/velocidad",
+        "tab": "tab-demo",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1b93b8ace3d38c5c",
+        "type": "ui_group",
+        "name": "Velocidades",
+        "tab": "",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "dir-mqtt-l1-vel",
@@ -632,7 +696,6 @@
         "cutout": "",
         "useOneColor": false,
         "useUTC": false,
-        "series": ["L1 Velocidad", "L2 Velocidad"],
         "colors": [
             "#1f77b4",
             "#ff7f0e"
@@ -640,7 +703,7 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 540,
+        "x": 660,
         "y": 400,
         "wires": [
             []
@@ -825,8 +888,13 @@
         "type": "function",
         "z": "tab-director",
         "name": "→ coste",
-        "func": "var d=msg.payload; msg.payload = d.coste_eur+' € ('+d.kwh+' kWh) — Turno: '+d.turno; return msg;",
+        "func": "var d = msg.payload; msg.payload = d.coste_eur + ' € (' + d.kwh + ' kWh) '; return msg;",
         "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 320,
         "y": 700,
         "wires": [
@@ -876,6 +944,11 @@
         "name": "→ €/ud",
         "func": "msg.payload = msg.payload.eur_por_unidad + ' €/unidad'; return msg;",
         "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 310,
         "y": 760,
         "wires": [
@@ -899,52 +972,6 @@
         "x": 540,
         "y": 760,
         "wires": []
-    },
-    {
-        "id": "inject-permisos",
-        "type": "inject",
-        "z": "tab-director",
-        "name": "Iniciar tabla",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.5,
-        "topic": "",
-        "payload": "{}",
-        "payloadType": "json",
-        "x": 160,
-        "y": 840,
-        "wires": [
-            [
-                "dir-text-permisos"
-            ]
-        ]
-    },
-    {
-        "id": "dir-text-permisos",
-        "type": "ui_template",
-        "z": "tab-director",
-        "group": "grp-dir-acceso",
-        "name": "Tabla de Permisos",
-        "order": 1,
-        "width": 12,
-        "height": 5,
-        "templateScope": "local",
-        "template": "<style>.pt{width:100%;border-collapse:collapse;font-size:13px;font-family:sans-serif;margin-top:4px}.pt th{background:#1565c0;color:#fff;padding:10px 8px;text-align:center}.pt th:first-child{text-align:left}.pt td{padding:8px 8px;border-bottom:1px solid #e0e0e0;text-align:center}.pt td:first-child{text-align:left;font-family:monospace}.pt tr:nth-child(even){background:#f5f5f5}.ok{color:#2e7d32;font-weight:bold}.no{color:#c62828;font-weight:bold}</style><table class='pt'><thead><tr><th>Topico MQTT</th><th>Operario 1</th><th>Operario 2</th><th>Supervisor</th><th>Director</th></tr></thead><tbody><tr><td>fabrica/linea1/*</td><td class='ok'>SI</td><td class='no'>NO</td><td class='ok'>SI</td><td class='ok'>SI</td></tr><tr><td>fabrica/linea2/*</td><td class='no'>NO</td><td class='ok'>SI</td><td class='ok'>SI</td><td class='ok'>SI</td></tr><tr><td>fabrica/mantenimiento/*</td><td class='no'>NO</td><td class='no'>NO</td><td class='ok'>SI</td><td class='ok'>SI</td></tr><tr><td>fabrica/produccion/*</td><td class='no'>NO</td><td class='no'>NO</td><td class='ok'>SI</td><td class='ok'>SI</td></tr><tr><td>fabrica/costes/*</td><td class='no'>NO</td><td class='no'>NO</td><td class='no'>NO</td><td class='ok'>SI</td></tr></tbody></table>",
-        "x": 380,
-        "y": 840,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "sup-mqtt-l1-vel",
@@ -1200,7 +1227,6 @@
         "removeOlder": 1,
         "removeOlderPoints": "100",
         "removeOlderUnit": "3600",
-        "series": ["L1 Velocidad", "L2 Velocidad"],
         "colors": [
             "#1f77b4",
             "#ff7f0e"
@@ -1369,46 +1395,6 @@
         "wires": []
     },
     {
-        "id": "inject-sup-restringido",
-        "type": "inject",
-        "z": "tab-supervisor",
-        "name": "Iniciar aviso",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "once": true,
-        "onceDelay": 0.5,
-        "payload": "{}",
-        "payloadType": "json",
-        "x": 160,
-        "y": 700,
-        "wires": [
-            [
-                "sup-text-restringido"
-            ]
-        ]
-    },
-    {
-        "id": "sup-text-restringido",
-        "type": "ui_template",
-        "z": "tab-supervisor",
-        "group": "grp-sup-restringido",
-        "name": "Acceso Restringido Supervisor",
-        "order": 1,
-        "width": 12,
-        "height": 2,
-        "templateScope": "local",
-        "template": "<div style='background:#b71c1c;color:#fff;padding:14px 16px;border-radius:6px;font-size:14px'><strong>ACCESO DENEGADO</strong> - Los datos de Costes y Energia (fabrica/costes/*) requieren certificado de Director. El broker rechaza la suscripcion para el rol Supervisor.</div>",
-        "x": 380,
-        "y": 700,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "op1-mqtt-vel",
         "type": "mqtt in",
         "z": "tab-operario1",
@@ -1551,46 +1537,6 @@
         "outputs": 1,
         "x": 540,
         "y": 240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "inject-op1-restringido",
-        "type": "inject",
-        "z": "tab-operario1",
-        "name": "Iniciar aviso",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "once": true,
-        "onceDelay": 0.5,
-        "payload": "{}",
-        "payloadType": "json",
-        "x": 160,
-        "y": 380,
-        "wires": [
-            [
-                "op1-text-restringido"
-            ]
-        ]
-    },
-    {
-        "id": "op1-text-restringido",
-        "type": "ui_template",
-        "z": "tab-operario1",
-        "group": "grp-op1-restringido",
-        "name": "Acceso Restringido Operario1",
-        "order": 1,
-        "width": 12,
-        "height": 4,
-        "templateScope": "local",
-        "template": "<div style='padding:4px'><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Linea 2</strong><br>fabrica/linea2/* - El broker rechaza la suscripcion. Requiere Operario 2, Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Mantenimiento</strong><br>fabrica/mantenimiento/* - Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Produccion</strong><br>fabrica/produccion/* - Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;font-size:13px'><strong>ACCESO DENEGADO - Costes</strong><br>fabrica/costes/* - Solo accesible para Director.</div></div>",
-        "x": 380,
-        "y": 380,
         "wires": [
             []
         ]
@@ -1743,43 +1689,398 @@
         ]
     },
     {
-        "id": "inject-op2-restringido",
+        "id": "demo-inject-header",
         "type": "inject",
-        "z": "tab-operario2",
-        "name": "Iniciar aviso",
+        "z": "1d437c3addc75383",
+        "name": "Iniciar explicacion",
         "props": [
             {
                 "p": "payload"
             }
         ],
         "repeat": "",
+        "crontab": "",
         "once": true,
-        "onceDelay": 0.5,
+        "onceDelay": 0.3,
+        "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 160,
-        "y": 380,
+        "x": 150,
+        "y": 80,
         "wires": [
             [
-                "op2-text-restringido"
+                "demo-header-tmpl"
             ]
         ]
     },
     {
-        "id": "op2-text-restringido",
+        "id": "demo-header-tmpl",
         "type": "ui_template",
-        "z": "tab-operario2",
-        "group": "grp-op2-restringido",
-        "name": "Acceso Restringido Operario2",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-header",
+        "name": "",
         "order": 1,
         "width": 12,
-        "height": 4,
+        "height": 3,
+        "format": "holsasdjsdf",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
         "templateScope": "local",
-        "template": "<div style='padding:4px'><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Linea 1</strong><br>fabrica/linea1/* - El broker rechaza la suscripcion. Requiere Operario 1, Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Mantenimiento</strong><br>fabrica/mantenimiento/* - Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Produccion</strong><br>fabrica/produccion/* - Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;font-size:13px'><strong>ACCESO DENEGADO - Costes</strong><br>fabrica/costes/* - Solo accesible para Director.</div></div>",
+        "className": "",
+        "x": 420,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "demo-inject-cnt0",
+        "type": "inject",
+        "z": "1d437c3addc75383",
+        "name": "Init contador denegado",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.7,
+        "topic": "",
+        "payload": "Mensajes recibidos: 0  (ACL bloquea el reenvio)",
+        "payloadType": "str",
+        "x": 230,
+        "y": 160,
+        "wires": [
+            [
+                "demo-cnt-l2"
+            ]
+        ]
+    },
+    {
+        "id": "demo-inject-status0",
+        "type": "inject",
+        "z": "1d437c3addc75383",
+        "name": "Init status denegado",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.8,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 240,
+        "y": 220,
+        "wires": [
+            [
+                "demo-status-l2"
+            ]
+        ]
+    },
+    {
+        "id": "demo-mqtt-l1",
+        "type": "mqtt in",
+        "z": "1d437c3addc75383",
+        "name": "L1 Velocidad (PERMITIDO)",
+        "topic": "fabrica/linea1/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "inputs": 0,
+        "x": 120,
+        "y": 700,
+        "wires": [
+            [
+                "demo-func-l1"
+            ]
+        ]
+    },
+    {
+        "id": "demo-func-l1",
+        "type": "function",
+        "z": "1d437c3addc75383",
+        "name": "parsear + contar L1",
+        "func": "var count = context.get('count') || 0;\ncount++;\ncontext.set('count', count);\nreturn [\n  {payload: msg.payload.valor, topic: 'RPM L1'},\n  {payload: 'Mensajes recibidos: ' + count + '  (datos en tiempo real)'}\n];",
+        "outputs": 2,
+        "x": 450,
+        "y": 700,
+        "wires": [
+            [
+                "demo-gauge-l1"
+            ],
+            [
+                "demo-cnt-l1"
+            ]
+        ]
+    },
+    {
+        "id": "demo-gauge-l1",
+        "type": "ui_gauge",
+        "z": "1d437c3addc75383",
+        "name": "",
+        "group": "grp-demo-permitido",
+        "order": 1,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Velocidad Linea 1 — EN VIVO",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 2000,
+        "colors": [
+            "#00c853",
+            "#ffeb3b",
+            "#e53935"
+        ],
+        "seg1": 1600,
+        "seg2": 1850,
+        "diff": false,
+        "className": "",
+        "x": 750,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "demo-cnt-l1",
+        "type": "ui_text",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-permitido",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 730,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "demo-status-l1-inject",
+        "type": "inject",
+        "z": "1d437c3addc75383",
+        "name": "Init status permitido",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.9,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 280,
+        "wires": [
+            [
+                "demo-status-l1"
+            ]
+        ]
+    },
+    {
+        "id": "demo-status-l1",
+        "type": "ui_template",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-permitido",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "templateScope": "local",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "demo-mqtt-l2",
+        "type": "mqtt in",
+        "z": "1d437c3addc75383",
+        "name": "L2 Velocidad (DENEGADO)",
+        "topic": "fabrica/linea2/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 120,
+        "y": 580,
+        "wires": [
+            [
+                "demo-func-l2"
+            ]
+        ]
+    },
+    {
+        "id": "demo-func-l2",
+        "type": "function",
+        "z": "1d437c3addc75383",
+        "name": "parsear L2 (nunca ejecutado)",
+        "func": "var count = context.get('count') || 0;\ncount++;\ncontext.set('count', count);\nreturn [\n  {payload: msg.payload.valor, topic: 'RPM L2'},\n  {payload: 'Mensajes recibidos: ' + count}\n];",
+        "outputs": 2,
+        "x": 400,
+        "y": 580,
+        "wires": [
+            [
+                "demo-gauge-l2"
+            ],
+            [
+                "demo-cnt-l2"
+            ]
+        ]
+    },
+    {
+        "id": "demo-gauge-l2",
+        "type": "ui_gauge",
+        "z": "1d437c3addc75383",
+        "name": "",
+        "group": "grp-demo-denegado",
+        "order": 1,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Velocidad Linea 2 — SIN DATOS",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 2000,
+        "colors": [
+            "#00c853",
+            "#ffeb3b",
+            "#e53935"
+        ],
+        "seg1": 1600,
+        "seg2": 1850,
+        "diff": false,
+        "className": "",
+        "x": 700,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "demo-cnt-l2",
+        "type": "ui_text",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-denegado",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 610,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "demo-status-l2",
+        "type": "ui_template",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-denegado",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "templateScope": "local",
         "x": 380,
         "y": 380,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "e480277f998b9e42",
+        "type": "inject",
+        "z": "1d437c3addc75383",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 370,
+        "y": 500,
+        "wires": [
+            [
+                "demo-gauge-l2"
+            ]
+        ]
+    },
+    {
+        "id": "fde223ea852f09dd",
+        "type": "mqtt in",
+        "z": "1d437c3addc75383",
+        "name": "Energía/Costes",
+        "topic": "fabrica/costes/energia",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 447.7499694824219,
+        "y": 897.5,
+        "wires": [
+            [
+                "ac268c1007a0dcfe"
+            ]
+        ]
+    },
+    {
+        "id": "ac268c1007a0dcfe",
+        "type": "function",
+        "z": "1d437c3addc75383",
+        "name": "→ coste",
+        "func": "var d=msg.payload; msg.payload = d.coste_eur+' € ('+d.kwh+' kWh) '; return msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 627.7499694824219,
+        "y": 897.5,
+        "wires": [
+            [
+                "5f46c2e81ea017dc"
+            ]
+        ]
+    },
+    {
+        "id": "5f46c2e81ea017dc",
+        "type": "ui_text",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-denegado",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "Coste Energía",
+        "label": "⚡ Coste acumulado",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 867.7499694824219,
+        "y": 897.5,
+        "wires": []
     }
 ]

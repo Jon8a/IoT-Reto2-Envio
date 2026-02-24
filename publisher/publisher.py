@@ -184,15 +184,23 @@ def main():
             kwh = fabrica.energia()
             coste = fabrica.coste_turno()
             publicar(client, "fabrica/costes/energia",
-                     {"kwh": kwh, "coste_eur": coste, "turno": "mañana"})
+                     {"kwh": kwh, "coste_eur": coste})
             publicar(client, "fabrica/costes/por_unidad",
                      {"eur_por_unidad": round(coste / max(unidades, 1), 4)})
 
-            # ── Log en consola ────────────────────────────────
-            alerta_str = "🚨 ALERTA L2" if fabrica.alerta_activa else "✅ Todo OK"
-            print(f"[{ts}] L1: {vel1}rpm {temp1}°C | "
-                  f"L2: {vel2}rpm {temp2}°C | "
-                  f"Uds: {unidades} | {alerta_str}")
+            alerta_str = "🚨 ALERTA L2" if fabrica.alerta_activa else "✅ OK"
+            coste_ud = round(coste / max(unidades, 1), 4)
+
+            # Print de datos en consola
+            print(
+                f"[{ts}] "
+                f"L1: {vel1}rpm {temp1}°C | "
+                f"L2: {vel2}rpm {temp2}°C | "
+                f"Mant: {estado_l2} {alerta_str} | "
+                f"Uds: {unidades} (L1:{fabrica.unidades_l1} L2:{fabrica.unidades_l2}) "
+                f"Rend:{rendimiento}% | "
+                f"Energía:{kwh}kWh Coste:{coste}€ ({coste_ud}€/ud)"
+            )
 
             time.sleep(INTERVALO)
 

@@ -28,6 +28,14 @@
         "info": "Solo Línea 2"
     },
     {
+        "id": "1d437c3addc75383",
+        "type": "tab",
+        "label": "Intento sin Permiso",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "tls-director",
         "type": "tls-config",
         "name": "TLS Director",
@@ -115,7 +123,10 @@
         "usetls": true,
         "protocolVersion": "4",
         "keepalive": "60",
-        "cleansession": true
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthQos": "0",
+        "willQos": "0"
     },
     {
         "id": "broker-operario2",
@@ -131,536 +142,1930 @@
         "keepalive": "60",
         "cleansession": true
     },
-
-    { "id": "4299c54ee0c44fc5", "type": "ui_base",
-      "theme": { "name": "theme-dark",
-        "lightTheme": { "default": "#0094CE", "baseColor": "#0094CE", "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif", "edited": false },
-        "darkTheme": { "default": "#097479", "baseColor": "#097479", "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif", "edited": false },
-        "customTheme": { "name": "Untitled Theme 1", "default": "#4B7930", "baseColor": "#4B7930", "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" },
-        "themeState": {
-          "base-color": { "default": "#0094CE", "value": "#0094CE", "edited": false },
-          "page-titlebar-backgroundColor": { "value": "#0094CE", "edited": false },
-          "page-backgroundColor": { "value": "#fafafa", "edited": false },
-          "page-sidebar-backgroundColor": { "value": "#ffffff", "edited": false },
-          "group-textColor": { "value": "#1bbfff", "edited": false },
-          "group-borderColor": { "value": "#ffffff", "edited": false },
-          "group-backgroundColor": { "value": "#ffffff", "edited": false },
-          "widget-textColor": { "value": "#111111", "edited": false },
-          "widget-backgroundColor": { "value": "#0094ce", "edited": false },
-          "widget-borderColor": { "value": "#ffffff", "edited": false },
-          "base-font": { "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" }
+    {
+        "id": "4299c54ee0c44fc5",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
         },
-        "angularTheme": { "primary": "indigo", "accents": "blue", "warn": "red", "background": "grey", "palette": "light" }
-      },
-      "site": { "name": "🏭 Fábrica IoT - Panel de Control", "hideToolbar": "false", "allowSwipe": "false", "lockMenu": "false", "allowTempTheme": "true", "dateFormat": "DD/MM/YYYY",
-        "sizes": { "sx": 48, "sy": 48, "gx": 6, "gy": 6, "cx": 6, "cy": 6, "px": 0, "py": 0 }
-      }
-    },
-
-    { "id": "ui-tab-director", "type": "ui_tab", "name": "🔑 Director", "icon": "dashboard", "order": 1 },
-    { "id": "ui-tab-supervisor", "type": "ui_tab", "name": "👔 Supervisor", "icon": "supervisor_account", "order": 2 },
-    { "id": "ui-tab-operario1", "type": "ui_tab", "name": "👷 Operario 1 (Línea 1)", "icon": "build", "order": 3 },
-    { "id": "ui-tab-operario2", "type": "ui_tab", "name": "👷 Operario 2 (Línea 2)", "icon": "build", "order": 4 },
-
-    { "id": "grp-dir-lineas", "type": "ui_group", "name": "📊 Líneas de Producción", "tab": "ui-tab-director", "order": 1, "disp": true, "width": "12" },
-    { "id": "grp-dir-mant", "type": "ui_group", "name": "🔧 Mantenimiento", "tab": "ui-tab-director", "order": 2, "disp": true, "width": "6" },
-    { "id": "grp-dir-prod", "type": "ui_group", "name": "🏭 Producción", "tab": "ui-tab-director", "order": 3, "disp": true, "width": "6" },
-    { "id": "grp-dir-costes", "type": "ui_group", "name": "💰 Costes y Energía", "tab": "ui-tab-director", "order": 4, "disp": true, "width": "12" },
-    { "id": "grp-dir-acceso", "type": "ui_group", "name": "🔐 Resumen de Permisos por Rol", "tab": "ui-tab-director", "order": 5, "disp": true, "width": "12" },
-
-    { "id": "grp-sup-lineas", "type": "ui_group", "name": "📊 Líneas de Producción", "tab": "ui-tab-supervisor", "order": 1, "disp": true, "width": "12" },
-    { "id": "grp-sup-mant", "type": "ui_group", "name": "🔧 Mantenimiento", "tab": "ui-tab-supervisor", "order": 2, "disp": true, "width": "6" },
-    { "id": "grp-sup-prod", "type": "ui_group", "name": "🏭 Producción", "tab": "ui-tab-supervisor", "order": 3, "disp": true, "width": "6" },
-    { "id": "grp-sup-restringido", "type": "ui_group", "name": "🔒 Acceso Restringido", "tab": "ui-tab-supervisor", "order": 4, "disp": true, "width": "12" },
-
-    { "id": "grp-op1-linea1", "type": "ui_group", "name": "📊 Línea 1 - Datos en Tiempo Real", "tab": "ui-tab-operario1", "order": 1, "disp": true, "width": "12" },
-    { "id": "grp-op1-restringido", "type": "ui_group", "name": "🔒 Acceso Restringido", "tab": "ui-tab-operario1", "order": 2, "disp": true, "width": "12" },
-
-    { "id": "grp-op2-linea2", "type": "ui_group", "name": "📊 Línea 2 - Datos en Tiempo Real", "tab": "ui-tab-operario2", "order": 1, "disp": true, "width": "12" },
-    { "id": "grp-op2-restringido", "type": "ui_group", "name": "🔒 Acceso Restringido", "tab": "ui-tab-operario2", "order": 2, "disp": true, "width": "12" },
-
-    {
-        "id": "dir-mqtt-l1-vel", "type": "mqtt in", "z": "tab-director",
-        "name": "L1 Velocidad", "topic": "fabrica/linea1/velocidad", "qos": "1", "datatype": "json",
-        "broker": "broker-director", "nl": false, "rap": false, "inputs": 0,
-        "x": 120, "y": 80,
-        "wires": [["dir-parse-l1-vel", "dir-chart-lineas"]]
+        "site": {
+            "name": "🏭 Fábrica IoT - Panel de Control",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
     },
     {
-        "id": "dir-parse-l1-vel", "type": "function", "z": "tab-director",
-        "name": "→ valor rpm", "func": "msg.payload = msg.payload.valor; msg.topic = 'L1 Velocidad'; return msg;",
-        "outputs": 1, "x": 320, "y": 80, "wires": [["dir-gauge-l1-vel"]]
+        "id": "ui-tab-director",
+        "type": "ui_tab",
+        "name": "🔑 Director",
+        "icon": "dashboard",
+        "order": 1
     },
     {
-        "id": "dir-gauge-l1-vel", "type": "ui_gauge", "z": "tab-director",
-        "group": "grp-dir-lineas", "order": 1, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Línea 1 - Velocidad", "label": "rpm",
-        "format": "{{value}}", "min": 1200, "max": 1800,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 1350, "seg2": 1600,
-        "x": 540, "y": 80, "wires": []
+        "id": "ui-tab-supervisor",
+        "type": "ui_tab",
+        "name": "👔 Supervisor",
+        "icon": "supervisor_account",
+        "order": 2
     },
     {
-        "id": "dir-mqtt-l1-temp", "type": "mqtt in", "z": "tab-director",
-        "name": "L1 Temperatura", "topic": "fabrica/linea1/temperatura", "qos": "1", "datatype": "json",
-        "broker": "broker-director", "inputs": 0,
-        "x": 120, "y": 160, "wires": [["dir-parse-l1-temp"]]
+        "id": "ui-tab-operario1",
+        "type": "ui_tab",
+        "name": "👷 Operario 1 (Línea 1)",
+        "icon": "build",
+        "order": 3
     },
     {
-        "id": "dir-parse-l1-temp", "type": "function", "z": "tab-director",
-        "name": "→ valor °C", "func": "msg.payload = msg.payload.valor; return msg;",
-        "outputs": 1, "x": 320, "y": 160, "wires": [["dir-gauge-l1-temp"]]
+        "id": "ui-tab-operario2",
+        "type": "ui_tab",
+        "name": "👷 Operario 2 (Línea 2)",
+        "icon": "build",
+        "order": 4
     },
     {
-        "id": "dir-gauge-l1-temp", "type": "ui_gauge", "z": "tab-director",
-        "group": "grp-dir-lineas", "order": 2, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Línea 1 - Temperatura", "label": "°C",
-        "format": "{{value}}", "min": 60, "max": 100,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 70, "seg2": 85,
-        "x": 540, "y": 160, "wires": []
+        "id": "grp-dir-lineas",
+        "type": "ui_group",
+        "name": "📊 Líneas de Producción",
+        "tab": "ui-tab-director",
+        "order": 1,
+        "disp": true,
+        "width": "12"
     },
     {
-        "id": "dir-mqtt-l2-vel", "type": "mqtt in", "z": "tab-director",
-        "name": "L2 Velocidad", "topic": "fabrica/linea2/velocidad", "qos": "1", "datatype": "json",
-        "broker": "broker-director", "inputs": 0,
-        "x": 120, "y": 240, "wires": [["dir-parse-l2-vel", "dir-chart-lineas"]]
+        "id": "grp-dir-mant",
+        "type": "ui_group",
+        "name": "🔧 Mantenimiento",
+        "tab": "ui-tab-director",
+        "order": 2,
+        "disp": true,
+        "width": "6"
     },
     {
-        "id": "dir-parse-l2-vel", "type": "function", "z": "tab-director",
-        "name": "→ valor rpm", "func": "msg.payload = msg.payload.valor; msg.topic = 'L2 Velocidad'; return msg;",
-        "outputs": 1, "x": 320, "y": 240, "wires": [["dir-gauge-l2-vel"]]
+        "id": "grp-dir-prod",
+        "type": "ui_group",
+        "name": "🏭 Producción",
+        "tab": "ui-tab-director",
+        "order": 3,
+        "disp": true,
+        "width": "6"
     },
     {
-        "id": "dir-gauge-l2-vel", "type": "ui_gauge", "z": "tab-director",
-        "group": "grp-dir-lineas", "order": 3, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Línea 2 - Velocidad", "label": "rpm",
-        "format": "{{value}}", "min": 1400, "max": 2200,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 1600, "seg2": 2000,
-        "x": 540, "y": 240, "wires": []
+        "id": "grp-dir-costes",
+        "type": "ui_group",
+        "name": "💰 Costes y Energía",
+        "tab": "ui-tab-director",
+        "order": 4,
+        "disp": true,
+        "width": "12"
     },
     {
-        "id": "dir-mqtt-l2-temp", "type": "mqtt in", "z": "tab-director",
-        "name": "L2 Temperatura", "topic": "fabrica/linea2/temperatura", "qos": "1", "datatype": "json",
-        "broker": "broker-director", "inputs": 0,
-        "x": 120, "y": 320, "wires": [["dir-parse-l2-temp"]]
+        "id": "grp-dir-acceso",
+        "type": "ui_group",
+        "name": "🔐 Resumen de Permisos por Rol",
+        "tab": "ui-tab-director",
+        "order": 5,
+        "disp": true,
+        "width": "12"
     },
     {
-        "id": "dir-parse-l2-temp", "type": "function", "z": "tab-director",
-        "name": "→ valor °C", "func": "msg.payload = msg.payload.valor; return msg;",
-        "outputs": 1, "x": 320, "y": 320, "wires": [["dir-gauge-l2-temp"]]
+        "id": "grp-sup-lineas",
+        "type": "ui_group",
+        "name": "📊 Líneas de Producción",
+        "tab": "ui-tab-supervisor",
+        "order": 1,
+        "disp": true,
+        "width": "12"
     },
     {
-        "id": "dir-gauge-l2-temp", "type": "ui_gauge", "z": "tab-director",
-        "group": "grp-dir-lineas", "order": 4, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Línea 2 - Temperatura", "label": "°C",
-        "format": "{{value}}", "min": 60, "max": 120,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 80, "seg2": 100,
-        "x": 540, "y": 320, "wires": []
+        "id": "grp-sup-mant",
+        "type": "ui_group",
+        "name": "🔧 Mantenimiento",
+        "tab": "ui-tab-supervisor",
+        "order": 2,
+        "disp": true,
+        "width": "6"
     },
     {
-        "id": "dir-chart-lineas", "type": "ui_chart", "z": "tab-director",
-        "group": "grp-dir-lineas", "order": 5, "width": 12, "height": 4,
+        "id": "grp-sup-prod",
+        "type": "ui_group",
+        "name": "🏭 Producción",
+        "tab": "ui-tab-supervisor",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "grp-sup-restringido",
+        "type": "ui_group",
+        "name": "🔒 Acceso Restringido",
+        "tab": "ui-tab-supervisor",
+        "order": 4,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-op1-linea1",
+        "type": "ui_group",
+        "name": "📊 Línea 1 - Datos en Tiempo Real",
+        "tab": "ui-tab-operario1",
+        "order": 1,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-op1-restringido",
+        "type": "ui_group",
+        "name": "🔒 Acceso Restringido",
+        "tab": "ui-tab-operario1",
+        "order": 2,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-op2-linea2",
+        "type": "ui_group",
+        "name": "📊 Línea 2 - Datos en Tiempo Real",
+        "tab": "ui-tab-operario2",
+        "order": 1,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "grp-op2-restringido",
+        "type": "ui_group",
+        "name": "🔒 Acceso Restringido",
+        "tab": "ui-tab-operario2",
+        "order": 2,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "tab-demo",
+        "type": "ui_tab",
+        "name": "Demo Acceso",
+        "icon": "warning",
+        "order": 5,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "grp-demo-header",
+        "type": "ui_group",
+        "name": "Como funciona el control de acceso MQTT",
+        "tab": "tab-demo",
+        "order": 1,
+        "disp": true,
+        "width": 12,
+        "collapse": false
+    },
+    {
+        "id": "grp-demo-permitido",
+        "type": "ui_group",
+        "name": "PERMITIDO — operario1 → fabrica/linea1/velocidad",
+        "tab": "tab-demo",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "grp-demo-denegado",
+        "type": "ui_group",
+        "name": "DENEGADO — operario1-fabrica/linea2/velocidad",
+        "tab": "tab-demo",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1b93b8ace3d38c5c",
+        "type": "ui_group",
+        "name": "Velocidades",
+        "tab": "",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dir-mqtt-l1-vel",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "L1 Velocidad",
+        "topic": "fabrica/linea1/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "dir-parse-l1-vel"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-l1-vel",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L1 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "dir-gauge-l1-vel",
+                "dir-chart-lineas"
+            ]
+        ]
+    },
+    {
+        "id": "dir-gauge-l1-vel",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-lineas",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 1 - Velocidad",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1200,
+        "max": 1800,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1350,
+        "seg2": 1600,
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-l1-temp",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "L1 Temperatura",
+        "topic": "fabrica/linea1/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "dir-parse-l1-temp"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-l1-temp",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "dir-gauge-l1-temp"
+            ]
+        ]
+    },
+    {
+        "id": "dir-gauge-l1-temp",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-lineas",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 1 - Temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 100,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 70,
+        "seg2": 85,
+        "x": 540,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-l2-vel",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "L2 Velocidad",
+        "topic": "fabrica/linea2/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "dir-parse-l2-vel"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-l2-vel",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L2 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "dir-gauge-l2-vel",
+                "dir-chart-lineas"
+            ]
+        ]
+    },
+    {
+        "id": "dir-gauge-l2-vel",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-lineas",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 2 - Velocidad",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1400,
+        "max": 2200,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1600,
+        "seg2": 2000,
+        "x": 540,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "dir-mqtt-l2-temp",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "L2 Temperatura",
+        "topic": "fabrica/linea2/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "dir-parse-l2-temp"
+            ]
+        ]
+    },
+    {
+        "id": "dir-parse-l2-temp",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "dir-gauge-l2-temp"
+            ]
+        ]
+    },
+    {
+        "id": "dir-gauge-l2-temp",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-lineas",
+        "order": 4,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 2 - Temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 120,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 80,
+        "seg2": 100,
+        "x": 540,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "dir-chart-lineas",
+        "type": "ui_chart",
+        "z": "tab-director",
+        "name": "",
+        "group": "grp-dir-lineas",
+        "order": 5,
+        "width": 12,
+        "height": 4,
         "label": "Velocidad RPM - Histórico en tiempo real",
-        "chartType": "line", "legend": "true", "xformat": "HH:mm:ss", "interpolate": "linear",
-        "nodata": "Esperando datos...", "dot": false,
-        "ymin": "1200", "ymax": "2200",
-        "removeOlder": 1, "removeOlderPoints": "100", "removeOlderUnit": "3600",
-        "colors": ["#1f77b4", "#ff7f0e"],
-        "series": ["L1 Velocidad", "L2 Velocidad"],
-        "outputs": 1, "x": 540, "y": 400, "wires": [[]]
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Esperando datos...",
+        "dot": false,
+        "ymin": "1200",
+        "ymax": "2200",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "cutout": "",
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 660,
+        "y": 400,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "dir-mqtt-alertas", "type": "mqtt in", "z": "tab-director",
-        "name": "Alertas Mantenimiento", "topic": "fabrica/mantenimiento/alertas", "qos": "1", "datatype": "json",
-        "broker": "broker-director", "inputs": 0,
-        "x": 120, "y": 480, "wires": [["dir-format-alerta"]]
+        "id": "dir-mqtt-alertas",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Alertas Mantenimiento",
+        "topic": "fabrica/mantenimiento/alertas",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 480,
+        "wires": [
+            [
+                "dir-format-alerta"
+            ]
+        ]
     },
     {
-        "id": "dir-format-alerta", "type": "function", "z": "tab-director",
+        "id": "dir-format-alerta",
+        "type": "function",
+        "z": "tab-director",
         "name": "Formatear alerta",
         "func": "var d = msg.payload; var color = d.estado==='ALERTA'?'#FF0000':'#00AA00'; msg.payload = (d.estado==='ALERTA'?'🚨 ':'✅ ') + d.estado + ' — ' + d.mensaje; msg.style={color:color}; return msg;",
-        "outputs": 1, "x": 330, "y": 480, "wires": [["dir-text-alerta"]]
+        "outputs": 1,
+        "x": 330,
+        "y": 480,
+        "wires": [
+            [
+                "dir-text-alerta"
+            ]
+        ]
     },
     {
-        "id": "dir-text-alerta", "type": "ui_text", "z": "tab-director",
-        "group": "grp-dir-mant", "order": 1, "width": 6, "height": 1,
-        "name": "Estado Mantenimiento", "label": "⚙️ Estado Línea 2",
-        "format": "{{msg.payload}}", "layout": "row-spread",
-        "x": 540, "y": 480, "wires": []
+        "id": "dir-text-alerta",
+        "type": "ui_text",
+        "z": "tab-director",
+        "group": "grp-dir-mant",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "Estado Mantenimiento",
+        "label": "⚙️ Estado Línea 2",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 480,
+        "wires": []
     },
     {
-        "id": "dir-mqtt-rendimiento", "type": "mqtt in", "z": "tab-director",
-        "name": "Rendimiento", "topic": "fabrica/produccion/rendimiento", "qos": "1", "datatype": "json",
-        "broker": "broker-director", "inputs": 0,
-        "x": 120, "y": 560, "wires": [["dir-parse-rendimiento"]]
+        "id": "dir-mqtt-rendimiento",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Rendimiento",
+        "topic": "fabrica/produccion/rendimiento",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 560,
+        "wires": [
+            [
+                "dir-parse-rendimiento"
+            ]
+        ]
     },
     {
-        "id": "dir-parse-rendimiento", "type": "function", "z": "tab-director",
-        "name": "→ %", "func": "msg.payload = msg.payload.porcentaje; return msg;",
-        "outputs": 1, "x": 300, "y": 560, "wires": [["dir-gauge-rendimiento"]]
+        "id": "dir-parse-rendimiento",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ %",
+        "func": "msg.payload = msg.payload.porcentaje; return msg;",
+        "outputs": 1,
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "dir-gauge-rendimiento"
+            ]
+        ]
     },
     {
-        "id": "dir-gauge-rendimiento", "type": "ui_gauge", "z": "tab-director",
-        "group": "grp-dir-prod", "order": 1, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Rendimiento Turno", "label": "%",
-        "format": "{{value}}%", "min": 0, "max": 100,
-        "colors": ["#ca3838", "#e6e600", "#00b500"], "seg1": 40, "seg2": 70,
-        "x": 540, "y": 560, "wires": []
+        "id": "dir-gauge-rendimiento",
+        "type": "ui_gauge",
+        "z": "tab-director",
+        "group": "grp-dir-prod",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Rendimiento Turno",
+        "label": "%",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#ca3838",
+            "#e6e600",
+            "#00b500"
+        ],
+        "seg1": 40,
+        "seg2": 70,
+        "x": 540,
+        "y": 560,
+        "wires": []
     },
     {
-        "id": "dir-mqtt-unidades", "type": "mqtt in", "z": "tab-director",
-        "name": "Unidades", "topic": "fabrica/produccion/unidades", "qos": "1", "datatype": "json",
-        "broker": "broker-director", "inputs": 0,
-        "x": 120, "y": 620, "wires": [["dir-parse-unidades"]]
+        "id": "dir-mqtt-unidades",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Unidades",
+        "topic": "fabrica/produccion/unidades",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 620,
+        "wires": [
+            [
+                "dir-parse-unidades"
+            ]
+        ]
     },
     {
-        "id": "dir-parse-unidades", "type": "function", "z": "tab-director",
-        "name": "→ total", "func": "msg.payload = msg.payload.total + ' uds (L1: ' + msg.payload.linea1 + ' | L2: ' + msg.payload.linea2 + ')'; return msg;",
-        "outputs": 1, "x": 310, "y": 620, "wires": [["dir-text-unidades"]]
+        "id": "dir-parse-unidades",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ total",
+        "func": "msg.payload = msg.payload.total + ' uds (L1: ' + msg.payload.linea1 + ' | L2: ' + msg.payload.linea2 + ')'; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 620,
+        "wires": [
+            [
+                "dir-text-unidades"
+            ]
+        ]
     },
     {
-        "id": "dir-text-unidades", "type": "ui_text", "z": "tab-director",
-        "group": "grp-dir-prod", "order": 2, "width": 6, "height": 1,
-        "name": "Unidades Producidas", "label": "📦 Unidades",
-        "format": "{{msg.payload}}", "layout": "row-spread",
-        "x": 540, "y": 620, "wires": []
+        "id": "dir-text-unidades",
+        "type": "ui_text",
+        "z": "tab-director",
+        "group": "grp-dir-prod",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "name": "Unidades Producidas",
+        "label": "📦 Unidades",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 620,
+        "wires": []
     },
     {
-        "id": "dir-mqtt-energia", "type": "mqtt in", "z": "tab-director",
-        "name": "Energía/Costes", "topic": "fabrica/costes/energia", "qos": "1", "datatype": "json",
-        "broker": "broker-director", "inputs": 0,
-        "x": 120, "y": 700, "wires": [["dir-parse-energia"]]
+        "id": "dir-mqtt-energia",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Energía/Costes",
+        "topic": "fabrica/costes/energia",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 700,
+        "wires": [
+            [
+                "dir-parse-energia"
+            ]
+        ]
     },
     {
-        "id": "dir-parse-energia", "type": "function", "z": "tab-director",
-        "name": "→ coste", "func": "var d=msg.payload; msg.payload = d.coste_eur+' € ('+d.kwh+' kWh) — Turno: '+d.turno; return msg;",
-        "outputs": 1, "x": 320, "y": 700, "wires": [["dir-text-coste"]]
+        "id": "dir-parse-energia",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ coste",
+        "func": "var d=msg.payload; msg.payload = d.coste_eur+' € ('+d.kwh+' kWh) — Turno: '+d.turno; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 700,
+        "wires": [
+            [
+                "dir-text-coste"
+            ]
+        ]
     },
     {
-        "id": "dir-text-coste", "type": "ui_text", "z": "tab-director",
-        "group": "grp-dir-costes", "order": 1, "width": 6, "height": 1,
-        "name": "Coste Energía", "label": "⚡ Coste acumulado",
-        "format": "{{msg.payload}}", "layout": "row-spread",
-        "x": 540, "y": 700, "wires": []
+        "id": "dir-text-coste",
+        "type": "ui_text",
+        "z": "tab-director",
+        "group": "grp-dir-costes",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "Coste Energía",
+        "label": "⚡ Coste acumulado",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 700,
+        "wires": []
     },
     {
-        "id": "dir-mqtt-por-unidad", "type": "mqtt in", "z": "tab-director",
-        "name": "Coste/Unidad", "topic": "fabrica/costes/por_unidad", "qos": "1", "datatype": "json",
-        "broker": "broker-director", "inputs": 0,
-        "x": 120, "y": 760, "wires": [["dir-parse-por-unidad"]]
+        "id": "dir-mqtt-por-unidad",
+        "type": "mqtt in",
+        "z": "tab-director",
+        "name": "Coste/Unidad",
+        "topic": "fabrica/costes/por_unidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-director",
+        "inputs": 0,
+        "x": 120,
+        "y": 760,
+        "wires": [
+            [
+                "dir-parse-por-unidad"
+            ]
+        ]
     },
     {
-        "id": "dir-parse-por-unidad", "type": "function", "z": "tab-director",
-        "name": "→ €/ud", "func": "msg.payload = msg.payload.eur_por_unidad + ' €/unidad'; return msg;",
-        "outputs": 1, "x": 310, "y": 760, "wires": [["dir-text-por-unidad"]]
+        "id": "dir-parse-por-unidad",
+        "type": "function",
+        "z": "tab-director",
+        "name": "→ €/ud",
+        "func": "msg.payload = msg.payload.eur_por_unidad + ' €/unidad'; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 760,
+        "wires": [
+            [
+                "dir-text-por-unidad"
+            ]
+        ]
     },
     {
-        "id": "dir-text-por-unidad", "type": "ui_text", "z": "tab-director",
-        "group": "grp-dir-costes", "order": 2, "width": 6, "height": 1,
-        "name": "Coste por Unidad", "label": "💰 Coste/unidad",
-        "format": "{{msg.payload}}", "layout": "row-spread",
-        "x": 540, "y": 760, "wires": []
+        "id": "dir-text-por-unidad",
+        "type": "ui_text",
+        "z": "tab-director",
+        "group": "grp-dir-costes",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "name": "Coste por Unidad",
+        "label": "💰 Coste/unidad",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 760,
+        "wires": []
     },
     {
-        "id": "inject-permisos", "type": "inject", "z": "tab-director",
-        "name": "Iniciar tabla", "props": [{"p": "payload"}, {"p": "topic", "vt": "str"}],
-        "repeat": "", "crontab": "", "once": true, "onceDelay": 0.5,
-        "topic": "", "payload": "{}", "payloadType": "json",
-        "x": 160, "y": 840, "wires": [["dir-text-permisos"]]
+        "id": "sup-mqtt-l1-vel",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "L1 Velocidad",
+        "topic": "fabrica/linea1/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "sup-parse-l1-vel"
+            ]
+        ]
     },
     {
-        "id": "dir-text-permisos", "type": "ui_template", "z": "tab-director",
-        "group": "grp-dir-acceso", "order": 1, "width": 12, "height": 5,
-        "name": "Tabla de Permisos",
-        "template": "<style>.perm-table{width:100%;border-collapse:collapse;font-size:13px;font-family:sans-serif}.perm-table th{background:#1565c0;color:#fff;padding:10px 8px;text-align:center}.perm-table th:first-child{text-align:left}.perm-table td{padding:8px;border-bottom:1px solid #e0e0e0}.perm-table tr:nth-child(even){background:#f5f5f5}.ok{color:#2e7d32;font-weight:bold;font-size:16px}.no{color:#c62828;font-weight:bold;font-size:16px}</style><table class='perm-table'><thead><tr><th>Topico MQTT</th><th>Operario 1</th><th>Operario 2</th><th>Supervisor</th><th>Director</th></tr></thead><tbody><tr><td>fabrica/linea1/*</td><td class='ok' style='text-align:center'>SI</td><td class='no' style='text-align:center'>NO</td><td class='ok' style='text-align:center'>SI</td><td class='ok' style='text-align:center'>SI</td></tr><tr><td>fabrica/linea2/*</td><td class='no' style='text-align:center'>NO</td><td class='ok' style='text-align:center'>SI</td><td class='ok' style='text-align:center'>SI</td><td class='ok' style='text-align:center'>SI</td></tr><tr><td>fabrica/mantenimiento/*</td><td class='no' style='text-align:center'>NO</td><td class='no' style='text-align:center'>NO</td><td class='ok' style='text-align:center'>SI</td><td class='ok' style='text-align:center'>SI</td></tr><tr><td>fabrica/produccion/*</td><td class='no' style='text-align:center'>NO</td><td class='no' style='text-align:center'>NO</td><td class='ok' style='text-align:center'>SI</td><td class='ok' style='text-align:center'>SI</td></tr><tr><td>fabrica/costes/*</td><td class='no' style='text-align:center'>NO</td><td class='no' style='text-align:center'>NO</td><td class='no' style='text-align:center'>NO</td><td class='ok' style='text-align:center'>SI</td></tr></tbody></table>",
-        "x": 380, "y": 840, "wires": []
-    },
-
-    {
-        "id": "sup-mqtt-l1-vel", "type": "mqtt in", "z": "tab-supervisor",
-        "name": "L1 Velocidad", "topic": "fabrica/linea1/velocidad", "qos": "1", "datatype": "json",
-        "broker": "broker-supervisor", "inputs": 0,
-        "x": 120, "y": 80, "wires": [["sup-parse-l1-vel", "sup-chart-lineas"]]
-    },
-    {
-        "id": "sup-parse-l1-vel", "type": "function", "z": "tab-supervisor",
-        "name": "→ valor rpm", "func": "msg.payload = msg.payload.valor; msg.topic = 'L1 Velocidad'; return msg;",
-        "outputs": 1, "x": 320, "y": 80, "wires": [["sup-gauge-l1-vel"]]
+        "id": "sup-parse-l1-vel",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L1 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "sup-gauge-l1-vel",
+                "sup-chart-lineas"
+            ]
+        ]
     },
     {
-        "id": "sup-gauge-l1-vel", "type": "ui_gauge", "z": "tab-supervisor",
-        "group": "grp-sup-lineas", "order": 1, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Línea 1 - Velocidad", "label": "rpm",
-        "format": "{{value}}", "min": 1200, "max": 1800,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 1350, "seg2": 1600,
-        "x": 540, "y": 80, "wires": []
+        "id": "sup-gauge-l1-vel",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 1 - Velocidad",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1200,
+        "max": 1800,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1350,
+        "seg2": 1600,
+        "x": 540,
+        "y": 80,
+        "wires": []
     },
     {
-        "id": "sup-mqtt-l1-temp", "type": "mqtt in", "z": "tab-supervisor",
-        "name": "L1 Temperatura", "topic": "fabrica/linea1/temperatura", "qos": "1", "datatype": "json",
-        "broker": "broker-supervisor", "inputs": 0,
-        "x": 120, "y": 160, "wires": [["sup-parse-l1-temp"]]
+        "id": "sup-mqtt-l1-temp",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "L1 Temperatura",
+        "topic": "fabrica/linea1/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "sup-parse-l1-temp"
+            ]
+        ]
     },
     {
-        "id": "sup-parse-l1-temp", "type": "function", "z": "tab-supervisor",
-        "name": "→ valor °C", "func": "msg.payload = msg.payload.valor; return msg;",
-        "outputs": 1, "x": 310, "y": 160, "wires": [["sup-gauge-l1-temp"]]
+        "id": "sup-parse-l1-temp",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "sup-gauge-l1-temp"
+            ]
+        ]
     },
     {
-        "id": "sup-gauge-l1-temp", "type": "ui_gauge", "z": "tab-supervisor",
-        "group": "grp-sup-lineas", "order": 2, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Línea 1 - Temperatura", "label": "°C",
-        "format": "{{value}}", "min": 60, "max": 100,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 70, "seg2": 85,
-        "x": 540, "y": 160, "wires": []
+        "id": "sup-gauge-l1-temp",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 1 - Temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 100,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 70,
+        "seg2": 85,
+        "x": 540,
+        "y": 160,
+        "wires": []
     },
     {
-        "id": "sup-mqtt-l2-vel", "type": "mqtt in", "z": "tab-supervisor",
-        "name": "L2 Velocidad", "topic": "fabrica/linea2/velocidad", "qos": "1", "datatype": "json",
-        "broker": "broker-supervisor", "inputs": 0,
-        "x": 120, "y": 240, "wires": [["sup-parse-l2-vel", "sup-chart-lineas"]]
+        "id": "sup-mqtt-l2-vel",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "L2 Velocidad",
+        "topic": "fabrica/linea2/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "sup-parse-l2-vel"
+            ]
+        ]
     },
     {
-        "id": "sup-parse-l2-vel", "type": "function", "z": "tab-supervisor",
-        "name": "→ valor rpm", "func": "msg.payload = msg.payload.valor; msg.topic = 'L2 Velocidad'; return msg;",
-        "outputs": 1, "x": 320, "y": 240, "wires": [["sup-gauge-l2-vel"]]
+        "id": "sup-parse-l2-vel",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L2 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "sup-gauge-l2-vel",
+                "sup-chart-lineas"
+            ]
+        ]
     },
     {
-        "id": "sup-gauge-l2-vel", "type": "ui_gauge", "z": "tab-supervisor",
-        "group": "grp-sup-lineas", "order": 3, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Línea 2 - Velocidad", "label": "rpm",
-        "format": "{{value}}", "min": 1400, "max": 2200,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 1600, "seg2": 2000,
-        "x": 540, "y": 240, "wires": []
+        "id": "sup-gauge-l2-vel",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 2 - Velocidad",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1400,
+        "max": 2200,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1600,
+        "seg2": 2000,
+        "x": 540,
+        "y": 240,
+        "wires": []
     },
     {
-        "id": "sup-mqtt-l2-temp", "type": "mqtt in", "z": "tab-supervisor",
-        "name": "L2 Temperatura", "topic": "fabrica/linea2/temperatura", "qos": "1", "datatype": "json",
-        "broker": "broker-supervisor", "inputs": 0,
-        "x": 120, "y": 320, "wires": [["sup-parse-l2-temp"]]
+        "id": "sup-mqtt-l2-temp",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "L2 Temperatura",
+        "topic": "fabrica/linea2/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "sup-parse-l2-temp"
+            ]
+        ]
     },
     {
-        "id": "sup-parse-l2-temp", "type": "function", "z": "tab-supervisor",
-        "name": "→ valor °C", "func": "msg.payload = msg.payload.valor; return msg;",
-        "outputs": 1, "x": 310, "y": 320, "wires": [["sup-gauge-l2-temp"]]
+        "id": "sup-parse-l2-temp",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "sup-gauge-l2-temp"
+            ]
+        ]
     },
     {
-        "id": "sup-gauge-l2-temp", "type": "ui_gauge", "z": "tab-supervisor",
-        "group": "grp-sup-lineas", "order": 4, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Línea 2 - Temperatura", "label": "°C",
-        "format": "{{value}}", "min": 60, "max": 120,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 80, "seg2": 100,
-        "x": 540, "y": 320, "wires": []
+        "id": "sup-gauge-l2-temp",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 4,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Línea 2 - Temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 120,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 80,
+        "seg2": 100,
+        "x": 540,
+        "y": 320,
+        "wires": []
     },
     {
-        "id": "sup-chart-lineas", "type": "ui_chart", "z": "tab-supervisor",
-        "group": "grp-sup-lineas", "order": 5, "width": 12, "height": 4,
+        "id": "sup-chart-lineas",
+        "type": "ui_chart",
+        "z": "tab-supervisor",
+        "group": "grp-sup-lineas",
+        "order": 5,
+        "width": 12,
+        "height": 4,
         "label": "Velocidad RPM en tiempo real",
-        "chartType": "line", "legend": "true", "xformat": "HH:mm:ss", "interpolate": "linear",
-        "nodata": "Esperando datos...", "dot": false,
-        "ymin": "1200", "ymax": "2200",
-        "removeOlder": 1, "removeOlderPoints": "100", "removeOlderUnit": "3600",
-        "colors": ["#1f77b4", "#ff7f0e"],
-        "series": ["L1 Velocidad", "L2 Velocidad"],
-        "outputs": 1, "x": 540, "y": 400, "wires": [[]]
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Esperando datos...",
+        "dot": false,
+        "ymin": "1200",
+        "ymax": "2200",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "colors": [
+            "#1f77b4",
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "x": 540,
+        "y": 400,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "sup-mqtt-alertas", "type": "mqtt in", "z": "tab-supervisor",
-        "name": "Alertas", "topic": "fabrica/mantenimiento/alertas", "qos": "1", "datatype": "json",
-        "broker": "broker-supervisor", "inputs": 0,
-        "x": 120, "y": 480, "wires": [["sup-format-alerta"]]
+        "id": "sup-mqtt-alertas",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "Alertas",
+        "topic": "fabrica/mantenimiento/alertas",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 480,
+        "wires": [
+            [
+                "sup-format-alerta"
+            ]
+        ]
     },
     {
-        "id": "sup-format-alerta", "type": "function", "z": "tab-supervisor",
+        "id": "sup-format-alerta",
+        "type": "function",
+        "z": "tab-supervisor",
         "name": "Formatear alerta",
         "func": "var d=msg.payload; msg.payload=(d.estado==='ALERTA'?'🚨 ':'✅ ')+d.estado+' — '+d.mensaje; return msg;",
-        "outputs": 1, "x": 330, "y": 480, "wires": [["sup-text-alerta"]]
+        "outputs": 1,
+        "x": 330,
+        "y": 480,
+        "wires": [
+            [
+                "sup-text-alerta"
+            ]
+        ]
     },
     {
-        "id": "sup-text-alerta", "type": "ui_text", "z": "tab-supervisor",
-        "group": "grp-sup-mant", "order": 1, "width": 6, "height": 1,
-        "name": "Estado Mantenimiento", "label": "⚙️ Estado Línea 2",
-        "format": "{{msg.payload}}", "layout": "row-spread",
-        "x": 540, "y": 480, "wires": []
+        "id": "sup-text-alerta",
+        "type": "ui_text",
+        "z": "tab-supervisor",
+        "group": "grp-sup-mant",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "Estado Mantenimiento",
+        "label": "⚙️ Estado Línea 2",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 480,
+        "wires": []
     },
     {
-        "id": "sup-mqtt-rendimiento", "type": "mqtt in", "z": "tab-supervisor",
-        "name": "Rendimiento", "topic": "fabrica/produccion/rendimiento", "qos": "1", "datatype": "json",
-        "broker": "broker-supervisor", "inputs": 0,
-        "x": 120, "y": 560, "wires": [["sup-parse-rendimiento"]]
+        "id": "sup-mqtt-rendimiento",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "Rendimiento",
+        "topic": "fabrica/produccion/rendimiento",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 560,
+        "wires": [
+            [
+                "sup-parse-rendimiento"
+            ]
+        ]
     },
     {
-        "id": "sup-parse-rendimiento", "type": "function", "z": "tab-supervisor",
-        "name": "→ %", "func": "msg.payload = msg.payload.porcentaje; return msg;",
-        "outputs": 1, "x": 300, "y": 560, "wires": [["sup-gauge-rendimiento"]]
+        "id": "sup-parse-rendimiento",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ %",
+        "func": "msg.payload = msg.payload.porcentaje; return msg;",
+        "outputs": 1,
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "sup-gauge-rendimiento"
+            ]
+        ]
     },
     {
-        "id": "sup-gauge-rendimiento", "type": "ui_gauge", "z": "tab-supervisor",
-        "group": "grp-sup-prod", "order": 1, "width": 3, "height": 3,
-        "gtype": "gage", "title": "Rendimiento Turno", "label": "%",
-        "format": "{{value}}%", "min": 0, "max": 100,
-        "colors": ["#ca3838", "#e6e600", "#00b500"], "seg1": 40, "seg2": 70,
-        "x": 540, "y": 560, "wires": []
+        "id": "sup-gauge-rendimiento",
+        "type": "ui_gauge",
+        "z": "tab-supervisor",
+        "group": "grp-sup-prod",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Rendimiento Turno",
+        "label": "%",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#ca3838",
+            "#e6e600",
+            "#00b500"
+        ],
+        "seg1": 40,
+        "seg2": 70,
+        "x": 540,
+        "y": 560,
+        "wires": []
     },
     {
-        "id": "sup-mqtt-unidades", "type": "mqtt in", "z": "tab-supervisor",
-        "name": "Unidades", "topic": "fabrica/produccion/unidades", "qos": "1", "datatype": "json",
-        "broker": "broker-supervisor", "inputs": 0,
-        "x": 120, "y": 620, "wires": [["sup-parse-unidades"]]
+        "id": "sup-mqtt-unidades",
+        "type": "mqtt in",
+        "z": "tab-supervisor",
+        "name": "Unidades",
+        "topic": "fabrica/produccion/unidades",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-supervisor",
+        "inputs": 0,
+        "x": 120,
+        "y": 620,
+        "wires": [
+            [
+                "sup-parse-unidades"
+            ]
+        ]
     },
     {
-        "id": "sup-parse-unidades", "type": "function", "z": "tab-supervisor",
-        "name": "→ total", "func": "msg.payload = msg.payload.total + ' uds (L1: '+msg.payload.linea1+' | L2: '+msg.payload.linea2+')'; return msg;",
-        "outputs": 1, "x": 310, "y": 620, "wires": [["sup-text-unidades"]]
+        "id": "sup-parse-unidades",
+        "type": "function",
+        "z": "tab-supervisor",
+        "name": "→ total",
+        "func": "msg.payload = msg.payload.total + ' uds (L1: '+msg.payload.linea1+' | L2: '+msg.payload.linea2+')'; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 620,
+        "wires": [
+            [
+                "sup-text-unidades"
+            ]
+        ]
     },
     {
-        "id": "sup-text-unidades", "type": "ui_text", "z": "tab-supervisor",
-        "group": "grp-sup-prod", "order": 2, "width": 6, "height": 1,
-        "name": "Unidades Producidas", "label": "📦 Unidades",
-        "format": "{{msg.payload}}", "layout": "row-spread",
-        "x": 540, "y": 620, "wires": []
+        "id": "sup-text-unidades",
+        "type": "ui_text",
+        "z": "tab-supervisor",
+        "group": "grp-sup-prod",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "name": "Unidades Producidas",
+        "label": "📦 Unidades",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 540,
+        "y": 620,
+        "wires": []
     },
     {
-        "id": "inject-sup-restringido", "type": "inject", "z": "tab-supervisor",
-        "name": "Iniciar aviso", "props": [{"p": "payload"}],
-        "repeat": "", "once": true, "onceDelay": 0.5,
-        "payload": "{}", "payloadType": "json",
-        "x": 160, "y": 700, "wires": [["sup-text-restringido"]]
+        "id": "op1-mqtt-vel",
+        "type": "mqtt in",
+        "z": "tab-operario1",
+        "name": "L1 Velocidad",
+        "topic": "fabrica/linea1/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "inputs": 0,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "op1-parse-vel"
+            ]
+        ]
     },
     {
-        "id": "sup-text-restringido", "type": "ui_template", "z": "tab-supervisor",
-        "group": "grp-sup-restringido", "order": 1, "width": 12, "height": 2,
-        "name": "Acceso Restringido Supervisor",
-        "template": "<div style='background:#b71c1c;color:#fff;padding:14px 16px;border-radius:6px;font-size:14px'><strong>ACCESO DENEGADO</strong> — Los datos de <strong>Costes y Energia</strong> (fabrica/costes/*) requieren certificado de <strong>Director</strong>. El broker rechaza la suscripcion para el rol Supervisor.</div>",
-        "x": 380, "y": 700, "wires": []
-    },
-
-    {
-        "id": "op1-mqtt-vel", "type": "mqtt in", "z": "tab-operario1",
-        "name": "L1 Velocidad", "topic": "fabrica/linea1/velocidad", "qos": "1", "datatype": "json",
-        "broker": "broker-operario", "inputs": 0,
-        "x": 120, "y": 80, "wires": [["op1-parse-vel"]]
-    },
-    {
-        "id": "op1-parse-vel", "type": "function", "z": "tab-operario1",
-        "name": "→ valor rpm", "func": "msg.payload = msg.payload.valor; msg.topic = 'L1 Velocidad'; return msg;",
-        "outputs": 1, "x": 320, "y": 80, "wires": [["op1-gauge-vel", "op1-chart"]]
+        "id": "op1-parse-vel",
+        "type": "function",
+        "z": "tab-operario1",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L1 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "op1-gauge-vel",
+                "op1-chart"
+            ]
+        ]
     },
     {
-        "id": "op1-gauge-vel", "type": "ui_gauge", "z": "tab-operario1",
-        "group": "grp-op1-linea1", "order": 1, "width": 4, "height": 3,
-        "gtype": "gage", "title": "Velocidad Línea 1", "label": "rpm",
-        "format": "{{value}}", "min": 1200, "max": 1800,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 1350, "seg2": 1600,
-        "x": 540, "y": 80, "wires": []
+        "id": "op1-gauge-vel",
+        "type": "ui_gauge",
+        "z": "tab-operario1",
+        "group": "grp-op1-linea1",
+        "order": 1,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Velocidad Línea 1",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1200,
+        "max": 1800,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1350,
+        "seg2": 1600,
+        "x": 540,
+        "y": 80,
+        "wires": []
     },
     {
-        "id": "op1-mqtt-temp", "type": "mqtt in", "z": "tab-operario1",
-        "name": "L1 Temperatura", "topic": "fabrica/linea1/temperatura", "qos": "1", "datatype": "json",
-        "broker": "broker-operario", "inputs": 0,
-        "x": 120, "y": 160, "wires": [["op1-parse-temp"]]
+        "id": "op1-mqtt-temp",
+        "type": "mqtt in",
+        "z": "tab-operario1",
+        "name": "L1 Temperatura",
+        "topic": "fabrica/linea1/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "op1-parse-temp"
+            ]
+        ]
     },
     {
-        "id": "op1-parse-temp", "type": "function", "z": "tab-operario1",
-        "name": "→ valor °C", "func": "msg.payload = msg.payload.valor; return msg;",
-        "outputs": 1, "x": 310, "y": 160, "wires": [["op1-gauge-temp"]]
+        "id": "op1-parse-temp",
+        "type": "function",
+        "z": "tab-operario1",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "op1-gauge-temp"
+            ]
+        ]
     },
     {
-        "id": "op1-gauge-temp", "type": "ui_gauge", "z": "tab-operario1",
-        "group": "grp-op1-linea1", "order": 2, "width": 4, "height": 3,
-        "gtype": "gage", "title": "Temperatura Línea 1", "label": "°C",
-        "format": "{{value}}", "min": 60, "max": 100,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 70, "seg2": 85,
-        "x": 540, "y": 160, "wires": []
+        "id": "op1-gauge-temp",
+        "type": "ui_gauge",
+        "z": "tab-operario1",
+        "group": "grp-op1-linea1",
+        "order": 2,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Temperatura Línea 1",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 100,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 70,
+        "seg2": 85,
+        "x": 540,
+        "y": 160,
+        "wires": []
     },
     {
-        "id": "op1-chart", "type": "ui_chart", "z": "tab-operario1",
-        "group": "grp-op1-linea1", "order": 3, "width": 12, "height": 4,
+        "id": "op1-chart",
+        "type": "ui_chart",
+        "z": "tab-operario1",
+        "group": "grp-op1-linea1",
+        "order": 3,
+        "width": 12,
+        "height": 4,
         "label": "Velocidad Linea 1 - Historico",
-        "chartType": "line", "legend": "false", "xformat": "HH:mm:ss", "interpolate": "linear",
-        "nodata": "Esperando datos...", "dot": false,
-        "ymin": "1200", "ymax": "1800",
-        "removeOlder": 1, "removeOlderPoints": "100", "removeOlderUnit": "3600",
-        "colors": ["#1f77b4"],
-        "series": ["L1 Velocidad"],
-        "outputs": 1, "x": 540, "y": 240, "wires": [[]]
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Esperando datos...",
+        "dot": false,
+        "ymin": "1200",
+        "ymax": "1800",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "colors": [
+            "#1f77b4"
+        ],
+        "outputs": 1,
+        "x": 540,
+        "y": 240,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "inject-op1-restringido", "type": "inject", "z": "tab-operario1",
-        "name": "Iniciar aviso", "props": [{"p": "payload"}],
-        "repeat": "", "once": true, "onceDelay": 0.5,
-        "payload": "{}", "payloadType": "json",
-        "x": 160, "y": 380, "wires": [["op1-text-restringido"]]
+        "id": "op2-mqtt-vel",
+        "type": "mqtt in",
+        "z": "tab-operario2",
+        "name": "L2 Velocidad",
+        "topic": "fabrica/linea2/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario2",
+        "inputs": 0,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "op2-parse-vel"
+            ]
+        ]
     },
     {
-        "id": "op1-text-restringido", "type": "ui_template", "z": "tab-operario1",
-        "group": "grp-op1-restringido", "order": 1, "width": 12, "height": 4,
-        "name": "Acceso Restringido Operario1",
-        "template": "<div style='padding:4px'><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Linea 2</strong><br>fabrica/linea2/* — El broker rechaza la suscripcion. Requiere Operario 2, Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Mantenimiento</strong><br>fabrica/mantenimiento/* — Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Produccion</strong><br>fabrica/produccion/* — Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;font-size:13px'><strong>ACCESO DENEGADO - Costes</strong><br>fabrica/costes/* — Solo accesible para Director.</div></div>",
-        "x": 380, "y": 380, "wires": []
-    },
-
-    {
-        "id": "op2-mqtt-vel", "type": "mqtt in", "z": "tab-operario2",
-        "name": "L2 Velocidad", "topic": "fabrica/linea2/velocidad", "qos": "1", "datatype": "json",
-        "broker": "broker-operario2", "inputs": 0,
-        "x": 120, "y": 80, "wires": [["op2-parse-vel"]]
-    },
-    {
-        "id": "op2-parse-vel", "type": "function", "z": "tab-operario2",
-        "name": "→ valor rpm", "func": "msg.payload = msg.payload.valor; msg.topic = 'L2 Velocidad'; return msg;",
-        "outputs": 1, "x": 320, "y": 80, "wires": [["op2-gauge-vel", "op2-chart"]]
+        "id": "op2-parse-vel",
+        "type": "function",
+        "z": "tab-operario2",
+        "name": "→ valor rpm",
+        "func": "msg.payload = msg.payload.valor; msg.topic = 'L2 Velocidad'; return msg;",
+        "outputs": 1,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "op2-gauge-vel",
+                "op2-chart"
+            ]
+        ]
     },
     {
-        "id": "op2-gauge-vel", "type": "ui_gauge", "z": "tab-operario2",
-        "group": "grp-op2-linea2", "order": 1, "width": 4, "height": 3,
-        "gtype": "gage", "title": "Velocidad Línea 2", "label": "rpm",
-        "format": "{{value}}", "min": 1400, "max": 2200,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 1600, "seg2": 2000,
-        "x": 540, "y": 80, "wires": []
+        "id": "op2-gauge-vel",
+        "type": "ui_gauge",
+        "z": "tab-operario2",
+        "group": "grp-op2-linea2",
+        "order": 1,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Velocidad Línea 2",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 1400,
+        "max": 2200,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 1600,
+        "seg2": 2000,
+        "x": 540,
+        "y": 80,
+        "wires": []
     },
     {
-        "id": "op2-mqtt-temp", "type": "mqtt in", "z": "tab-operario2",
-        "name": "L2 Temperatura", "topic": "fabrica/linea2/temperatura", "qos": "1", "datatype": "json",
-        "broker": "broker-operario2", "inputs": 0,
-        "x": 120, "y": 160, "wires": [["op2-parse-temp"]]
+        "id": "op2-mqtt-temp",
+        "type": "mqtt in",
+        "z": "tab-operario2",
+        "name": "L2 Temperatura",
+        "topic": "fabrica/linea2/temperatura",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario2",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "op2-parse-temp"
+            ]
+        ]
     },
     {
-        "id": "op2-parse-temp", "type": "function", "z": "tab-operario2",
-        "name": "→ valor °C", "func": "msg.payload = msg.payload.valor; return msg;",
-        "outputs": 1, "x": 310, "y": 160, "wires": [["op2-gauge-temp"]]
+        "id": "op2-parse-temp",
+        "type": "function",
+        "z": "tab-operario2",
+        "name": "→ valor °C",
+        "func": "msg.payload = msg.payload.valor; return msg;",
+        "outputs": 1,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "op2-gauge-temp"
+            ]
+        ]
     },
     {
-        "id": "op2-gauge-temp", "type": "ui_gauge", "z": "tab-operario2",
-        "group": "grp-op2-linea2", "order": 2, "width": 4, "height": 3,
-        "gtype": "gage", "title": "Temperatura Línea 2", "label": "°C",
-        "format": "{{value}}", "min": 60, "max": 120,
-        "colors": ["#00b500", "#e6e600", "#ca3838"], "seg1": 80, "seg2": 100,
-        "x": 540, "y": 160, "wires": []
+        "id": "op2-gauge-temp",
+        "type": "ui_gauge",
+        "z": "tab-operario2",
+        "group": "grp-op2-linea2",
+        "order": 2,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Temperatura Línea 2",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 60,
+        "max": 120,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": 80,
+        "seg2": 100,
+        "x": 540,
+        "y": 160,
+        "wires": []
     },
     {
-        "id": "op2-chart", "type": "ui_chart", "z": "tab-operario2",
-        "group": "grp-op2-linea2", "order": 3, "width": 12, "height": 4,
+        "id": "op2-chart",
+        "type": "ui_chart",
+        "z": "tab-operario2",
+        "group": "grp-op2-linea2",
+        "order": 3,
+        "width": 12,
+        "height": 4,
         "label": "Velocidad Linea 2 - Historico",
-        "chartType": "line", "legend": "false", "xformat": "HH:mm:ss", "interpolate": "linear",
-        "nodata": "Esperando datos...", "dot": false,
-        "ymin": "1400", "ymax": "2200",
-        "removeOlder": 1, "removeOlderPoints": "100", "removeOlderUnit": "3600",
-        "colors": ["#ff7f0e"],
-        "series": ["L2 Velocidad"],
-        "outputs": 1, "x": 540, "y": 240, "wires": [[]]
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Esperando datos...",
+        "dot": false,
+        "ymin": "1400",
+        "ymax": "2200",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "colors": [
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "x": 540,
+        "y": 240,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "inject-op2-restringido", "type": "inject", "z": "tab-operario2",
-        "name": "Iniciar aviso", "props": [{"p": "payload"}],
-        "repeat": "", "once": true, "onceDelay": 0.5,
-        "payload": "{}", "payloadType": "json",
-        "x": 160, "y": 380, "wires": [["op2-text-restringido"]]
+        "id": "demo-inject-header",
+        "type": "inject",
+        "z": "1d437c3addc75383",
+        "name": "Iniciar explicacion",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.3,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "demo-header-tmpl"
+            ]
+        ]
     },
     {
-        "id": "op2-text-restringido", "type": "ui_template", "z": "tab-operario2",
-        "group": "grp-op2-restringido", "order": 1, "width": 12, "height": 4,
-        "name": "Acceso Restringido Operario2",
-        "template": "<div style='padding:4px'><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Linea 1</strong><br>fabrica/linea1/* — El broker rechaza la suscripcion. Requiere Operario 1, Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Mantenimiento</strong><br>fabrica/mantenimiento/* — Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;margin-bottom:8px;font-size:13px'><strong>ACCESO DENEGADO - Produccion</strong><br>fabrica/produccion/* — Requiere Supervisor o Director.</div><div style='background:#b71c1c;color:#fff;padding:10px 14px;border-radius:5px;font-size:13px'><strong>ACCESO DENEGADO - Costes</strong><br>fabrica/costes/* — Solo accesible para Director.</div></div>",
-        "x": 380, "y": 380, "wires": []
+        "id": "demo-header-tmpl",
+        "type": "ui_template",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-header",
+        "name": "",
+        "order": 1,
+        "width": 12,
+        "height": 3,
+        "format": "holsasdjsdf",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 420,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "demo-inject-cnt0",
+        "type": "inject",
+        "z": "1d437c3addc75383",
+        "name": "Init contador denegado",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.7,
+        "topic": "",
+        "payload": "Mensajes recibidos: 0  (ACL bloquea el reenvio)",
+        "payloadType": "str",
+        "x": 230,
+        "y": 160,
+        "wires": [
+            [
+                "demo-cnt-l2"
+            ]
+        ]
+    },
+    {
+        "id": "demo-inject-status0",
+        "type": "inject",
+        "z": "1d437c3addc75383",
+        "name": "Init status denegado",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.8,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 240,
+        "y": 220,
+        "wires": [
+            [
+                "demo-status-l2"
+            ]
+        ]
+    },
+    {
+        "id": "demo-mqtt-l1",
+        "type": "mqtt in",
+        "z": "1d437c3addc75383",
+        "name": "L1 Velocidad (PERMITIDO)",
+        "topic": "fabrica/linea1/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "inputs": 0,
+        "x": 120,
+        "y": 700,
+        "wires": [
+            [
+                "demo-func-l1"
+            ]
+        ]
+    },
+    {
+        "id": "demo-func-l1",
+        "type": "function",
+        "z": "1d437c3addc75383",
+        "name": "parsear + contar L1",
+        "func": "var count = context.get('count') || 0;\ncount++;\ncontext.set('count', count);\nreturn [\n  {payload: msg.payload.valor, topic: 'RPM L1'},\n  {payload: 'Mensajes recibidos: ' + count + '  (datos en tiempo real)'}\n];",
+        "outputs": 2,
+        "x": 450,
+        "y": 700,
+        "wires": [
+            [
+                "demo-gauge-l1"
+            ],
+            [
+                "demo-cnt-l1"
+            ]
+        ]
+    },
+    {
+        "id": "demo-gauge-l1",
+        "type": "ui_gauge",
+        "z": "1d437c3addc75383",
+        "name": "",
+        "group": "grp-demo-permitido",
+        "order": 1,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Velocidad Linea 1 — EN VIVO",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 2000,
+        "colors": [
+            "#00c853",
+            "#ffeb3b",
+            "#e53935"
+        ],
+        "seg1": 1600,
+        "seg2": 1850,
+        "diff": false,
+        "className": "",
+        "x": 750,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "demo-cnt-l1",
+        "type": "ui_text",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-permitido",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 730,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "demo-status-l1-inject",
+        "type": "inject",
+        "z": "1d437c3addc75383",
+        "name": "Init status permitido",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.9,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 280,
+        "wires": [
+            [
+                "demo-status-l1"
+            ]
+        ]
+    },
+    {
+        "id": "demo-status-l1",
+        "type": "ui_template",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-permitido",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "templateScope": "local",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "demo-mqtt-l2",
+        "type": "mqtt in",
+        "z": "1d437c3addc75383",
+        "name": "L2 Velocidad (DENEGADO)",
+        "topic": "fabrica/linea2/velocidad",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 120,
+        "y": 580,
+        "wires": [
+            [
+                "demo-func-l2"
+            ]
+        ]
+    },
+    {
+        "id": "demo-func-l2",
+        "type": "function",
+        "z": "1d437c3addc75383",
+        "name": "parsear L2 (nunca ejecutado)",
+        "func": "var count = context.get('count') || 0;\ncount++;\ncontext.set('count', count);\nreturn [\n  {payload: msg.payload.valor, topic: 'RPM L2'},\n  {payload: 'Mensajes recibidos: ' + count}\n];",
+        "outputs": 2,
+        "x": 400,
+        "y": 580,
+        "wires": [
+            [
+                "demo-gauge-l2"
+            ],
+            [
+                "demo-cnt-l2"
+            ]
+        ]
+    },
+    {
+        "id": "demo-gauge-l2",
+        "type": "ui_gauge",
+        "z": "1d437c3addc75383",
+        "name": "",
+        "group": "grp-demo-denegado",
+        "order": 1,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Velocidad Linea 2 — SIN DATOS",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 2000,
+        "colors": [
+            "#00c853",
+            "#ffeb3b",
+            "#e53935"
+        ],
+        "seg1": 1600,
+        "seg2": 1850,
+        "diff": false,
+        "className": "",
+        "x": 700,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "demo-cnt-l2",
+        "type": "ui_text",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-denegado",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 610,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "demo-status-l2",
+        "type": "ui_template",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-denegado",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "templateScope": "local",
+        "x": 380,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e480277f998b9e42",
+        "type": "inject",
+        "z": "1d437c3addc75383",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 370,
+        "y": 500,
+        "wires": [
+            [
+                "demo-gauge-l2"
+            ]
+        ]
+    },
+    {
+        "id": "fde223ea852f09dd",
+        "type": "mqtt in",
+        "z": "1d437c3addc75383",
+        "name": "Energía/Costes",
+        "topic": "fabrica/costes/energia",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "broker-operario",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 447.7499694824219,
+        "y": 897.5,
+        "wires": [
+            [
+                "ac268c1007a0dcfe"
+            ]
+        ]
+    },
+    {
+        "id": "ac268c1007a0dcfe",
+        "type": "function",
+        "z": "1d437c3addc75383",
+        "name": "→ coste",
+        "func": "var d=msg.payload; msg.payload = d.coste_eur+' € ('+d.kwh+' kWh) — Turno: '+d.turno; return msg;",
+        "outputs": 1,
+        "x": 627.7499694824219,
+        "y": 897.5,
+        "wires": [
+            [
+                "5f46c2e81ea017dc"
+            ]
+        ]
+    },
+    {
+        "id": "5f46c2e81ea017dc",
+        "type": "ui_text",
+        "z": "1d437c3addc75383",
+        "group": "grp-demo-denegado",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "Coste Energía",
+        "label": "⚡ Coste acumulado",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 867.7499694824219,
+        "y": 897.5,
+        "wires": []
     }
 ]
