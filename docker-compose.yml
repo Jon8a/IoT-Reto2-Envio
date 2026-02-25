@@ -35,3 +35,27 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Europe/Madrid
+
+  # ── SUBSCRIBER DIRECTOR (acceso total) ──────────────────────
+  subscriber-director:
+    build: ./subscriber
+    container_name: fabrica-subscriber-director
+    command: python subscriber_director.py
+    volumes:
+      - ./certs:/certs
+    depends_on:
+      - mosquitto
+      - publisher
+    restart: unless-stopped
+
+  # ── SUBSCRIBER OPERARIO (acceso limitado) ───────────────────
+  subscriber-operario:
+    build: ./subscriber
+    container_name: fabrica-subscriber-operario
+    command: python subscriber_operario.py
+    volumes:
+      - ./certs:/certs
+    depends_on:
+      - mosquitto
+      - publisher
+    restart: unless-stopped

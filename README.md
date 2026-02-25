@@ -1,10 +1,11 @@
 # 🏭 Fábrica IoT - MQTT Seguro con Certificados
 
 > Reto: Módulo de Envío de Datos — Desarrollo de Aplicaciones para IoT  
-> Universidad de Deusto, Facultad de Ingeniería
+
 
 ## 👤 Miembros del equipo
-- [Tu nombre aquí]
+- Jon Ochoa
+- Oier Martinez
 
 ---
 
@@ -23,20 +24,30 @@ Sistema de monitorización de una fábrica inteligente con **MQTT seguro (TLS mu
 ## 🏗️ Arquitectura
 
 ```
-┌─────────────────────────────────────────────────┐
-│              Docker Compose                      │
-│                                                  │
-│  ┌──────────────┐      ┌───────────────────┐    │
-│  │  Mosquitto   │◄────►│    Node-RED        │    │
-│  │  (broker)    │ TLS  │  Dashboard :1880   │    │
-│  │  TLS + ACL   │      │  /ui               │    │
-│  └──────┬───────┘      └───────────────────┘    │
-│         │                                        │
-│  ┌──────┴───────┐                               │
-│  │   Publisher  │                               │
-│  │   (Python)   │                               │
-│  └──────────────┘                               │
-└─────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    Docker Compose                            │
+│                                                              │
+│  ┌──────────────┐      ┌───────────────────┐                │
+│  │  Mosquitto   │◄────►│    Node-RED        │                │
+│  │  (broker)    │ TLS  │  Dashboard :1880   │                │
+│  │  TLS + ACL   │      │  /ui               │                │
+│  └──────┬───────┘      └───────────────────┘                │
+│         │                                                    │
+│         │  ┌─────────────────────────────────────┐          │
+│         ├─►│   Publisher (Python)                │          │
+│         │  │   Genera datos de sensores          │          │
+│         │  └─────────────────────────────────────┘          │
+│         │                                                    │
+│         │  ┌─────────────────────────────────────┐          │
+│         ├─►│   Subscriber Director (Python)      │          │
+│         │  │   Consume TODOS los topics          │          │
+│         │  └─────────────────────────────────────┘          │
+│         │                                                    │
+│         │  ┌─────────────────────────────────────┐          │
+│         └─►│   Subscriber Operario (Python)      │          │
+│            │   Consume solo línea 1              │          │
+│            └─────────────────────────────────────┘          │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -72,6 +83,47 @@ Abrir en el navegador: **http://localhost:1880/ui**
 - Pestaña 🔑 **Director** → ve todos los datos incluyendo costes
 - Pestaña 👷 **Operario** → solo velocidad y temperatura de líneas
 
+### 5. Ver logs de los subscribers Python
+Los subscribers Python están corriendo en contenedores y consumiendo datos en tiempo real:
+
+```bash
+# Ver logs del subscriber Director (ve todo)
+docker logs -f fabrica-subscriber-director
+
+# Ver logs del subscriber Operario (acceso limitado)
+docker logs -f fabrica-subscriber-operario
+```
+
+**Nota importante:** El subscriber operario intentará suscribirse a varios topics, pero el ACL de Mosquitto **bloqueará silenciosamente** los mensajes de costes, mantenimiento, etc. Solo recibirá datos de línea 1 (velocidad y temperatura).
+
+---
+
+## Subscribers Python (Consumidores)
+
+El proyecto incluye **dos subscribers Python** que consumen datos de manera segura desde el broker:
+
+### Subscriber Director (Acceso Total)
+```bash
+# Ver en tiempo real todos los mensajes
+docker logs -f fabrica-subscriber-director
+```
+- 👔 Usa certificado: `director.crt`
+- ✅ Recibe **TODOS** los topics: `fabrica/#`
+- 💰 Incluye: líneas, mantenimiento, producción, costes, energía
+
+### Subscriber Operario (Acceso Limitado)
+```bash
+# Ver solo mensajes permitidos
+docker logs -f fabrica-subscriber-operario
+```
+- 👷 Usa certificado: `operario.crt`
+- ⚠️ Intenta suscribirse a varios topics, pero el **ACL bloquea** la mayoría
+- ✅ Solo recibe: `fabrica/linea1/velocidad` y `fabrica/linea1/temperatura`
+- ❌ **No recibe**: costes, mantenimiento, producción, línea 2
+
+**Demostración del control de acceso:**
+Ambos subscribers intentan suscribirse a los mismos topics, pero Mosquitto aplica el ACL y **filtra silenciosamente** los mensajes según el certificado presentado. Esto demuestra que la seguridad funciona tanto en producción como en consumo.
+
 ---
 
 ## 💻 Producir y consumir desde línea de comandos
@@ -96,7 +148,7 @@ mosquitto_sub \
   --cert ./certs/operario.crt \
   --key ./certs/operario.key \
   -v
-# Solo recibirá fabrica/linea1/* y fabrica/linea2/*
+# Solo recibirá fabrica/linea1/*
 ```
 
 ### Intentar acceder a datos de costes como Operario (acceso denegado)
@@ -145,10 +197,11 @@ mosquitto_pub \
 2. Generación de CA y certificados con OpenSSL
 3. Configuración de Mosquitto con TLS mutual y ACL
 4. Desarrollo del publisher Python con simulación de sensores
-5. Configuración de Node-RED con dos conexiones (director y operario)
-6. Construcción del dashboard con gauges y gráficas en tiempo real
-7. Pruebas desde línea de comandos con mosquitto_pub/sub
-8. Contenedorización con Docker Compose
+5. **Desarrollo de subscribers Python (director y operario) para consumo seguro**
+6. Configuración de Node-RED con dos conexiones (director y operario)
+7. Construcción del dashboard con gauges y gráficas en tiempo real
+8. Pruebas desde línea de comandos con mosquitto_pub/sub
+9. Contenedorización con Docker Compose
 
 ---
 
@@ -182,5 +235,3 @@ mosquitto_pub \
 
 ---
 
-## 📄 Licencia
-Proyecto académico — Universidad de Deusto 2026
