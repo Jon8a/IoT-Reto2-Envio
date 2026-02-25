@@ -170,8 +170,8 @@ mosquitto_pub \
   -t "fabrica/linea1/temperatura" \
   -m '{"valor": 95.5, "unidad": "C", "linea": 1}' \
   --cafile ./certs/ca.crt \
-  --cert ./certs/director.crt \
-  --key ./certs/director.key
+  --cert ./certs/publisher.crt \
+  --key ./certs/publisher.key
 ```
 
 ---
