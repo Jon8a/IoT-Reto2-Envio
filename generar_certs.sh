@@ -15,19 +15,23 @@ echo "========================================"
 # ── 1. CA (Autoridad Certificadora) ──────────────────────────
 echo ""
 echo "[1/6] Generando CA..."
+
 openssl genrsa -out $CERTS_DIR/ca.key 2048
 openssl req -new -x509 -days 3650 -key $CERTS_DIR/ca.key \
   -out $CERTS_DIR/ca.crt \
   -subj "/C=ES/ST=Euskadi/L=Bilbao/O=FabricaIoT/CN=FabricaCA"
+
 echo "      ✓ ca.key y ca.crt creados"
 
 # ── 2. Certificado del SERVIDOR (broker Mosquitto) ───────────
 echo ""
 echo "[2/6] Generando certificado del servidor..."
+
 openssl genrsa -out $CERTS_DIR/server.key 2048
 openssl req -new -key $CERTS_DIR/server.key \
   -out $CERTS_DIR/server.csr \
   -subj "/C=ES/ST=Euskadi/L=Bilbao/O=FabricaIoT/CN=mosquitto"
+  
 # SAN extension so the cert is valid for both 'mosquitto' (Docker) and 'localhost'
 cat > /tmp/server_ext.cnf <<EOF
 [SAN]
@@ -41,6 +45,8 @@ openssl x509 -req -days 3650 \
   -extfile /tmp/server_ext.cnf \
   -extensions SAN \
   -out $CERTS_DIR/server.crt
+
+
 echo "      ✓ server.key y server.crt creados"
 
 # ── Función para generar certificados de cliente ─────────────
@@ -59,6 +65,8 @@ generar_cliente() {
     -CAkey $CERTS_DIR/ca.key \
     -CAcreateserial \
     -out $CERTS_DIR/$NOMBRE.crt
+
+    
   echo "      ✓ $NOMBRE.key y $NOMBRE.crt creados"
 }
 
